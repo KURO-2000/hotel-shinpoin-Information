@@ -1,0 +1,1 @@
+remote-1.jpg ~ remote-7.jpg 파일을 이 폴더에 넣으세요.
