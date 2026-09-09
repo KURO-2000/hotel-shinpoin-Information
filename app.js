@@ -61,8 +61,8 @@ function languageScreen(){
       <div class="hotel">${esc(SITE_DATA.hotelName)}</div>
       <h1>${esc(ja.welcomeTitle)}</h1>
       <p>${esc(ja.languagePrompt1)}<br>${esc(ja.languagePrompt2)}</p>
-      <button class="language-choice" onclick="setLang('ja')">🇯🇵 日本語</button>
-      <button class="language-choice" onclick="setLang('en')">🇬🇧 English</button>
+      <button class="language-choice" onclick="setLang('ja')">日本語</button>
+      <button class="language-choice" onclick="setLang('en')">English</button>
     </div>
   </div>`;
 }
