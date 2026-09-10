@@ -259,7 +259,7 @@ const SITE_DATA = {
   parking: {
     ja: [
       {
-        name: "① タイムスペース真法院町（3-minute walk）",
+        name: "① タイムスペース真法院町（徒歩3分）",
         mapQuery: "Time Space 8-8 Shinpoincho Tennoji Osaka", mapUrl: "https://maps.app.goo.gl/85SMhNr458EyPrwh6",
         sections: [
           { title: "参考料金", items: ["入庫から24時間まで - 1,500円","夜間最大 (18:00～8:00) - 300円","※最大料金は繰り返しの適用となります。","オールタイム：30分 / 200円"] },
@@ -268,7 +268,7 @@ const SITE_DATA = {
         ]
       },
       {
-        name: "② エコロパーク真法院町 第1駐車場（3-minute walk）",
+        name: "② エコロパーク真法院町 第1駐車場（徒歩3分）",
         mapQuery: "Ecolo Park Shinpoincho Dai 1 Parking Lot Osaka", mapUrl: "https://maps.app.goo.gl/5AJJjCsi61xr9rpf7",
         sections: [
           { title: "参考料金", items: ["平日：入庫から24時間最大 - 1,600円","土日祝：入庫から24時間最大 - 900円","オールタイム：20分：220円","夜間最大料金：300円"] },
@@ -276,7 +276,7 @@ const SITE_DATA = {
         ]
       },
       {
-        name: "③ 三井パーク勝山1丁目 第2駐車場（2-minute walk）",
+        name: "③ 三井パーク勝山1丁目 第2駐車場（徒歩2分）",
         mapQuery: "Mitsui Repark Katsuyama 1-chome Dai 2 Osaka", mapUrl: "https://maps.app.goo.gl/AWmYN9UhdV3Vfphi9",
         sections: [
           { title: "参考料金", items: ["入庫後24時間以内最大1,300円（繰り返しあり）","通常料金　0:00～24:00","20分：220円"] },
