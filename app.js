@@ -138,7 +138,7 @@ function restaurantCategory(){
   const L=T();
   const key=state.category;
   const name=L.categories[key] || L.restaurants;
-  const list=SITE_DATA.restaurants[key] || [];
+  const list=SITE_DATA.restaurants[state.lang][key] || [];
 
   return `${topbar()}<main class="content">
     <button class="back" onclick="go('restaurants')">← ${esc(L.back)}</button>
