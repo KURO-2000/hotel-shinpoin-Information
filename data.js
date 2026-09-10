@@ -333,10 +333,13 @@ const SITE_DATA = {
       ]
     },
     en: {
-      intro: [],
+      intro: [
+        "Our hotel provides a shipping service for luggage such as suitcases and cardboard boxes.",
+        "Depending on the delivery conditions and the distance to the destination, we may not be able to accommodate your request. Deliveries to airports are subject to strict deadlines, so please make sure to check the required delivery date in advance."
+      ],
       cards: [
-        { title: "Delivery to Another Hotel", note: "", linkKey: "enbaggageHotelForm", button: "Open the dedicated form" },
-        { title: "Delivery to the Airport", note: "", linkKey: "enbaggageAirportForm", button: "Open the dedicated form" }
+        { title: "Delivery to Another Hotel", note: "Deadline: By the day before your desired shipping date", linkKey: "enbaggageHotelForm", button: "Open the dedicated form" },
+        { title: "Delivery to the Airport", note: "Deadline: At least 2 days before your desired shipping date", linkKey: "enbaggageAirportForm", button: "Open the dedicated form" }
       ]
     }
   },
