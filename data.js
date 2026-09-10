@@ -98,41 +98,41 @@ const SITE_DATA = {
 
   stations: {
     ja: [
-      { name: "桃谷駅", mapQuery: "JR Momodani Station, Osaka", mapUrl: "https://maps.app.goo.gl/TTYmEDYsEfFjzQJM7" },
-      { name: "鶴橋", mapQuery: "Tsuruhashi Station, Osaka", mapUrl: "https://maps.app.goo.gl/SCw3j6wKhGWxoQBp9" },
-      { name: "上本町駅", mapQuery: "Osaka Uehonmachi Station, Osaka", mapUrl: "https://maps.app.goo.gl/zE99NpAgyS6tSxJQ6" },
-      { name: "四天王寺夕陽ヶ丘駅", mapQuery: "Shitennoji-mae Yuhigaoka Station, Osaka", mapUrl: "https://maps.app.goo.gl/A3kzURXvZYsUTt8L9" }
+      { name: "桃谷駅（徒歩11分）", mapQuery: "JR Momodani Station, Osaka", mapUrl: "https://maps.app.goo.gl/TTYmEDYsEfFjzQJM7" },
+      { name: "鶴橋（徒歩21分）", mapQuery: "Tsuruhashi Station, Osaka", mapUrl: "https://maps.app.goo.gl/SCw3j6wKhGWxoQBp9" },
+      { name: "上本町駅（徒歩18分）", mapQuery: "Osaka Uehonmachi Station, Osaka", mapUrl: "https://maps.app.goo.gl/zE99NpAgyS6tSxJQ6" },
+      { name: "四天王寺夕陽ヶ丘駅（徒歩10分）", mapQuery: "Shitennoji-mae Yuhigaoka Station, Osaka", mapUrl: "https://maps.app.goo.gl/A3kzURXvZYsUTt8L9" }
     ],
     en: [
-      { name: "JR Momodani Station", mapQuery: "JR Momodani Station, Osaka", mapUrl: "https://maps.app.goo.gl/TTYmEDYsEfFjzQJM7" },
-      { name: "Tsuruhashi Station", mapQuery: "Tsuruhashi Station, Osaka", mapUrl: "https://maps.app.goo.gl/SCw3j6wKhGWxoQBp9" },
-      { name: "Osaka Uehonmachi Station", mapQuery: "Osaka Uehonmachi Station, Osaka", mapUrl: "https://maps.app.goo.gl/zE99NpAgyS6tSxJQ6" },
-      { name: "Shitennoji-mae Yuhigaoka Station", mapQuery: "Shitennoji-mae Yuhigaoka Station, Osaka", mapUrl: "https://maps.app.goo.gl/A3kzURXvZYsUTt8L9" }
+      { name: "JR Momodani Statio（11-minute walk）n", mapQuery: "JR Momodani Station, Osaka", mapUrl: "https://maps.app.goo.gl/TTYmEDYsEfFjzQJM7" },
+      { name: "Tsuruhashi Station（21-minute walk）", mapQuery: "Tsuruhashi Station, Osaka", mapUrl: "https://maps.app.goo.gl/SCw3j6wKhGWxoQBp9" },
+      { name: "Osaka Uehonmachi Station（18-minute walk）", mapQuery: "Osaka Uehonmachi Station, Osaka", mapUrl: "https://maps.app.goo.gl/zE99NpAgyS6tSxJQ6" },
+      { name: "Shitennoji-mae Yuhigaoka Station（10-minute walk）", mapQuery: "Shitennoji-mae Yuhigaoka Station, Osaka", mapUrl: "https://maps.app.goo.gl/A3kzURXvZYsUTt8L9" }
     ]
   },
 
   convenience: {
     ja: [
-      { name: "ツルハドラッグ 天王寺真法院店", mapQuery: "Tsuruha Drug, 12-14 Shinpoincho, Tennoji Ward, Osaka", mapUrl: "https://maps.app.goo.gl/G3Du9n7oWczjJcgU6" },
-      { name: "ライフ四天王寺店", mapQuery: "Life Shitennoji, Osaka", mapUrl: "https://maps.app.goo.gl/sWwdd6P319wh4Fwx5" },
-      { name: "ローソン 勝山三丁目店", mapQuery: "Lawson Katsuyama 3-chome, Osaka", mapUrl: "https://maps.app.goo.gl/83eEZAmHF7c5W8M39" },
-      { name: "ファミリーマート 桃谷駅西店", mapQuery: "FamilyMart 2 Chome-3-2 Karasugatsuji, Osaka", mapUrl: "https://maps.app.goo.gl/8WQZY1MHBJGaEPZp9" }
+      { name: "ツルハドラッグ 天王寺真法院店（徒歩3分）", mapQuery: "Tsuruha Drug, 12-14 Shinpoincho, Tennoji Ward, Osaka", mapUrl: "https://maps.app.goo.gl/G3Du9n7oWczjJcgU6" },
+      { name: "ライフ四天王寺店（徒歩8分）", mapQuery: "Life Shitennoji, Osaka", mapUrl: "https://maps.app.goo.gl/sWwdd6P319wh4Fwx5" },
+      { name: "ローソン 勝山三丁目店（徒歩7分）", mapQuery: "Lawson Katsuyama 3-chome, Osaka", mapUrl: "https://maps.app.goo.gl/83eEZAmHF7c5W8M39" },
+      { name: "ファミリーマート 桃谷駅西店（徒歩7分）", mapQuery: "FamilyMart 2 Chome-3-2 Karasugatsuji, Osaka", mapUrl: "https://maps.app.goo.gl/8WQZY1MHBJGaEPZp9" }
     ],
     en: [
-      { name: "Tsuruha Drug", mapQuery: "Tsuruha Drug, 12-14 Shinpoincho, Tennoji Ward, Osaka", mapUrl: "https://maps.app.goo.gl/G3Du9n7oWczjJcgU6" },
-      { name: "Supermarket Life", mapQuery: "Life Shitennoji, Osaka", mapUrl: "https://maps.app.goo.gl/sWwdd6P319wh4Fwx5" },
-      { name: "Lawson", mapQuery: "Lawson Katsuyama 3-chome, Osaka", mapUrl: "https://maps.app.goo.gl/83eEZAmHF7c5W8M39" },
-      { name: "FamilyMart", mapQuery: "FamilyMart 2 Chome-3-2 Karasugatsuji, Osaka", mapUrl: "https://maps.app.goo.gl/8WQZY1MHBJGaEPZp9" }
+      { name: "Tsuruha Drug（3-minute walk）", mapQuery: "Tsuruha Drug, 12-14 Shinpoincho, Tennoji Ward, Osaka", mapUrl: "https://maps.app.goo.gl/G3Du9n7oWczjJcgU6" },
+      { name: "Supermarket Life（8-minute walk）", mapQuery: "Life Shitennoji, Osaka", mapUrl: "https://maps.app.goo.gl/sWwdd6P319wh4Fwx5" },
+      { name: "Lawson（7-minute walk）", mapQuery: "Lawson Katsuyama 3-chome, Osaka", mapUrl: "https://maps.app.goo.gl/83eEZAmHF7c5W8M39" },
+      { name: "FamilyMart（7-minute walk）", mapQuery: "FamilyMart 2 Chome-3-2 Karasugatsuji, Osaka", mapUrl: "https://maps.app.goo.gl/8WQZY1MHBJGaEPZp9" }
     ]
   },
 
   restaurants: {
     ja: {
       okonomiyaki: [
-        { name: "鉄板焼きとお好み焼き 狸狸亭鶴橋店 （徒歩19分）", mapQuery: "Ponpoco-tei Tsuruhashi, Osaka", mapUrl: "https://maps.app.goo.gl/of5BACcdcyMLvgwD6" },
-        { name: "お好み焼 金のてこ （徒歩32分）", mapQuery: "お好み焼き 金のてこ, Osaka", mapUrl: "https://maps.app.goo.gl/vJuCc9BNcM2jMXgNA" },
-        { name: "たぴおか食堂 （徒歩9分）", mapQuery: "Tapioca Shokudo, Osaka", mapUrl: "https://maps.app.goo.gl/8gqwu6psCdG1JYsu7" },
-        { name: "居酒屋 お好み焼き弐八 天王寺 （徒歩11分）", mapQuery: "お好み焼き 弐八, Osaka", mapUrl: "https://maps.app.goo.gl/d7gvQnuSbzCsBi4b6" }
+        { name: "鉄板焼きとお好み焼き 狸狸亭鶴橋店（徒歩19分）", mapQuery: "Ponpoco-tei Tsuruhashi, Osaka", mapUrl: "https://maps.app.goo.gl/of5BACcdcyMLvgwD6" },
+        { name: "お好み焼 金のてこ（徒歩32分）", mapQuery: "お好み焼き 金のてこ, Osaka", mapUrl: "https://maps.app.goo.gl/vJuCc9BNcM2jMXgNA" },
+        { name: "たぴおか食堂（徒歩9分）", mapQuery: "Tapioca Shokudo, Osaka", mapUrl: "https://maps.app.goo.gl/8gqwu6psCdG1JYsu7" },
+        { name: "居酒屋 お好み焼き弐八 天王寺（徒歩11分）", mapQuery: "お好み焼き 弐八, Osaka", mapUrl: "https://maps.app.goo.gl/d7gvQnuSbzCsBi4b6" }
       ],
       sushi: [
         { name: "鮨 我逢人（徒歩5分）", mapQuery: "鮨 我逢人, Osaka", mapUrl: "https://maps.app.goo.gl/2ajqi6yJULBvW6wz7" },
@@ -141,117 +141,117 @@ const SITE_DATA = {
         { name: "鮨こいき（徒歩8分）", mapQuery: "Sushi Koiki Osaka", mapUrl: "https://maps.app.goo.gl/PNKJqtY5QagfRztZ8" }
       ],
       japanese: [
-        { name: "一品料理 花", mapQuery: "Hana Daido Tennoji Osaka", mapUrl: "" },
-        { name: "うなぎのお食事処 舟屋", mapQuery: "Funaya unagi Osaka", mapUrl: "" },
-        { name: "とんかつ とん亭", mapQuery: "Tontei Daido Osaka", mapUrl: "" },
-        { name: "焼鳥 トミーズ", mapQuery: "YAKITORI Tommy's Momodani Osaka", mapUrl: "" },
-        { name: "味 コのじ", mapQuery: "味 コのじ Osaka", mapUrl: "" }
+        { name: "花（徒歩12分）", mapQuery: "Hana Daido Tennoji Osaka", mapUrl: "https://maps.app.goo.gl/mhLtACKoXSopkPt6A" },
+        { name: "うなぎのお食事処 舟屋（徒歩15分）", mapQuery: "Funaya unagi Osaka", mapUrl: "https://maps.app.goo.gl/9tzjmtbBBS8EhUeA9" },
+        { name: "とんかつ とん亭（徒歩11分）", mapQuery: "Tontei Daido Osaka", mapUrl: "https://maps.app.goo.gl/ZXV2qWBzQK6Eu4YN7" },
+        { name: "YAKITORI Tommy's（徒歩11分）", mapQuery: "YAKITORI Tommy's Momodani Osaka", mapUrl: "https://maps.app.goo.gl/mzwEBi2J56xA4qkZ6" },
+        { name: "コのじ（徒歩18分）", mapQuery: "味 コのじ Osaka", mapUrl: "https://maps.app.goo.gl/RiysFiHvRPGzH6tW8" }
       ],
       breakfast: [
-        { name: "ロイヤルホスト", mapQuery: "Royal Host Uehonmachi Osaka", mapUrl: "" },
-        { name: "マンデリン", mapQuery: "Manderin Momodani Osaka", mapUrl: "" },
-        { name: "富良野みるく工房", mapQuery: "富良野みるく工房 Karasugatsuji Osaka", mapUrl: "" },
-        { name: "アメリカン", mapQuery: "American Shinpoincho Osaka", mapUrl: "" }
+        { name: "ロイヤルホスト上本町店（徒歩6分）", mapQuery: "Royal Host Uehonmachi Osaka", mapUrl: "https://maps.app.goo.gl/RQfzsXnmTz7R6FaE7" },
+        { name: "マンデリン（徒歩11分）", mapQuery: "Manderin Momodani Osaka", mapUrl: "https://maps.app.goo.gl/GVAmbnHyw1DcuQ6x5" },
+        { name: "富良野みるく工房（徒歩3分）", mapQuery: "富良野みるく工房 Karasugatsuji Osaka", mapUrl: "https://maps.app.goo.gl/k3SfjaUM5Pg8Hih38" },
+        { name: "アメリカン（徒歩3分）", mapQuery: "American Shinpoincho Osaka", mapUrl: "https://maps.app.goo.gl/ZTVpsdE8f8DTDbuG7" }
       ],
       cafe: [
-        { name: "オールドリバー", mapQuery: "Old River Komiyacho Osaka", mapUrl: "" },
-        { name: "The Coffee Market 145", mapQuery: "The Coffee Market 145 Osaka", mapUrl: "" },
-        { name: "コメダ珈琲店", mapQuery: "Komeda's Coffee Karasugatsuji Osaka", mapUrl: "" },
-        { name: "ミスタードーナツ", mapQuery: "Mister Donut Karasugatsuji Osaka", mapUrl: "" }
+        { name: "オールドリバー（徒歩5分）（臨時休業）", mapQuery: "Old River Komiyacho Osaka", mapUrl: "https://maps.app.goo.gl/gb66o8Pan8HqRFGg7" },
+        { name: "The Coffee Market 145（徒歩9分）", mapQuery: "The Coffee Market 145 Osaka", mapUrl: "https://maps.app.goo.gl/voXTgxECbSbFnNT86" },
+        { name: "コメダ珈琲店 桃谷駅前店（徒歩10分）", mapQuery: "Komeda's Coffee Karasugatsuji Osaka", mapUrl: "https://maps.app.goo.gl/az3cgRRPyRByPF9Z6" },
+        { name: "ミスタードーナツ JR桃谷駅前ショップ（徒歩11分）", mapQuery: "Mister Donut Karasugatsuji Osaka", mapUrl: "https://maps.app.goo.gl/hsqtf8U6c8sD37VC8" }
       ],
       noodle: [
-        { name: "麺処 細屋", mapQuery: "麺処 細屋 Katsuyama Osaka", mapUrl: "" },
-        { name: "やまがそば", mapQuery: "Yamaga Soba Uehonmachi Osaka", mapUrl: "" },
-        { name: "四天王寺 はやうち", mapQuery: "Shitennoji Hayauchi Osaka", mapUrl: "" },
-        { name: "イ袋ワシづかみ", mapQuery: "唯一無二のらぁ麺専門店 イ袋ワシづかみ Osaka", mapUrl: "" }
+        { name: "麺処 細屋（徒歩6分）", mapQuery: "麺処 細屋 Katsuyama Osaka", mapUrl: "https://maps.app.goo.gl/HuW16QEZ2ULk9jWX7" },
+        { name: "やまがそば（徒歩5分）", mapQuery: "Yamaga Soba Uehonmachi Osaka", mapUrl: "https://maps.app.goo.gl/AMQMWA7YF9pMmXmP6" },
+        { name: "四天王寺 はやうち（徒歩12分）", mapQuery: "Shitennoji Hayauchi Osaka", mapUrl: "https://maps.app.goo.gl/h9bjeGHbGBhb4huT9" },
+        { name: "唯一無二のらぁ麺専門店 イ袋ワシづかみ（徒歩4分）", mapQuery: "唯一無二のらぁ麺専門店 イ袋ワシづかみ Osaka", mapUrl: "https://maps.app.goo.gl/szJxQAdRfSYakenx5" }
       ],
       yakiniku: [
-        { name: "焼肉ソウル", mapQuery: "焼肉 ソウル 桃谷店 Osaka", mapUrl: "" },
-        { name: "道楽", mapQuery: "Doraku Katsuyama Osaka", mapUrl: "" },
-        { name: "アジヨシ", mapQuery: "Yakiniku Aji-yoshi Tsuruhashi Osaka", mapUrl: "" },
-        { name: "桃谷 焼肉満憶", mapQuery: "桃谷 焼肉満憶 Osaka", mapUrl: "" }
+        { name: "焼肉 ソウル 桃谷店（徒歩11分）", mapQuery: "焼肉 ソウル 桃谷店 Osaka", mapUrl: "https://maps.app.goo.gl/yHmHLg7rrVPzwNf48" },
+        { name: "道楽（徒歩8分）（臨時休業）", mapQuery: "Doraku Katsuyama Osaka", mapUrl: "https://maps.app.goo.gl/Pv5sm1QXyuEmjVBu5" },
+        { name: "焼肉アジヨシ 鶴橋総本店（徒歩22分）", mapQuery: "Yakiniku Aji-yoshi Tsuruhashi Osaka", mapUrl: "https://maps.app.goo.gl/ubJpHF1JUrGRrVTV9" },
+        { name: "焼肉満憶（徒歩10分）", mapQuery: "桃谷 焼肉満憶 Osaka", mapUrl: "https://maps.app.goo.gl/pf5KAv62NnWbL4n98" }
       ],
       western: [
-        { name: "ポモドーロ・フレスカ", mapQuery: "ポモドーロ・フレスカ Osaka", mapUrl: "" },
-        { name: "みなとまちバール BamVino", mapQuery: "BamVino 桃谷店 Osaka", mapUrl: "" },
-        { name: "グリルポッケ", mapQuery: "Grill Pokke Osaka", mapUrl: "" },
-        { name: "PASTA KITCHEN GYO", mapQuery: "PASTA KITCHEN GYO Osaka", mapUrl: "" }
+        { name: "ポモドーロ・フレスカ（徒歩11分）", mapQuery: "ポモドーロ・フレスカ Osaka", mapUrl: "https://maps.app.goo.gl/KeveMQEBYP5mL26g6" },
+        { name: "みなとまちバール BamVino（徒歩7分）", mapQuery: "BamVino 桃谷店 Osaka", mapUrl: "https://maps.app.goo.gl/TSsxd1PqgHhhf5ja6" },
+        { name: "グリルポッケ（徒歩16分）", mapQuery: "Grill Pokke Osaka", mapUrl: "https://maps.app.goo.gl/Ce8R8ZTdvBEYQo2Z8" },
+        { name: "PASTA KITCHEN GYO（徒歩19分）", mapQuery: "PASTA KITCHEN GYO Osaka", mapUrl: "https://maps.app.goo.gl/X7A7cUAJWnvUFuCs6" }
       ],
       chinese: [
-        { name: "中華料理 其蘭", mapQuery: "中国料理 其蘭 Shinpoincho Osaka", mapUrl: "" },
-        { name: "中華料理 鑫福源", mapQuery: "中華料理 鑫福源 Osaka", mapUrl: "" },
-        { name: "桃園", mapQuery: "桃園 Katsuyamakita Osaka", mapUrl: "" },
-        { name: "なかよし", mapQuery: "なかよし Katsuyama Tennoji Osaka", mapUrl: "" }
+        { name: "中華料理 其蘭（徒歩4分）", mapQuery: "中国料理 其蘭 Shinpoincho Osaka", mapUrl: "https://maps.app.goo.gl/vnnhC3NtBv39yanM9" },
+        { name: "中華料理 鑫福源（徒歩10分）", mapQuery: "中華料理 鑫福源 Osaka", mapUrl: "https://maps.app.goo.gl/kqSH7VT5YquaoFtF7" },
+        { name: "本格中国料理 桃園（徒歩15分）", mapQuery: "桃園 Katsuyamakita Osaka", mapUrl: "https://maps.app.goo.gl/DKKhoA6Ku33h8NeV6" },
+        { name: "なかよし（徒歩3分）", mapQuery: "なかよし Katsuyama Tennoji Osaka", mapUrl: "https://maps.app.goo.gl/wCnKgA7xKUNSBDAr5" }
       ],
       korean: [
-        { name: "韓国料理 TonTon", mapQuery: "TonTon Ishigatsujicho Osaka", mapUrl: "" },
-        { name: "momodani chicken&beer", mapQuery: "momodani chicken&beer Osaka", mapUrl: "" },
-        { name: "月", mapQuery: "月 Dogashiba Osaka Korean restaurant", mapUrl: "" },
-        { name: "済州島 テールスープ専門店", mapQuery: "Jeju-do Tail Soup Osaka", mapUrl: "" }
+        { name: "韓国料理TonTon 한국식당 톤톤（徒歩16分）", mapQuery: "TonTon Ishigatsujicho Osaka", mapUrl: "https://maps.app.goo.gl/AU8v8Z43TbhsSUjr7" },
+        { name: "momodakni chicken&beer（徒歩13分）", mapQuery: "momodani chicken&beer Osaka", mapUrl: "https://maps.app.goo.gl/ii9KtqA7JUEoNdBN6" },
+        { name: "月（徒歩12分）", mapQuery: "月 Dogashiba Osaka Korean restaurant", mapUrl: "https://maps.app.goo.gl/QeSmh2C9e6scYZcw5" },
+        { name: "済州島テールスープ専門店（徒歩4分）", mapQuery: "Jeju-do Tail Soup Osaka", mapUrl: "https://maps.app.goo.gl/BSjDXQJpF6mPTs3z5" }
       ]
     },
 
     en: {
       okonomiyaki: [
-        { name: "Ponpocotei Tsuruhashi (19 min walk)", mapQuery: "Ponpoco-tei Tsuruhashi, Osaka", mapUrl: "https://maps.app.goo.gl/of5BACcdcyMLvgwD6" },
-        { name: "Kin no Teko (32 min walk)", mapQuery: "お好み焼き 金のてこ, Osaka", mapUrl: "https://maps.app.goo.gl/vJuCc9BNcM2jMXgNA" },
-        { name: "Tapioca Shokudo (9 min walk)", mapQuery: "Tapioca Shokudo, Osaka", mapUrl: "https://maps.app.goo.gl/8gqwu6psCdG1JYsu7" },
-        { name: "Okonomiyaki Nihachi Tennoji (11 min walk)", mapQuery: "お好み焼き 弐八, Osaka", mapUrl: "https://maps.app.goo.gl/d7gvQnuSbzCsBi4b6" }
+        { name: "鉄板焼きとお好み焼き 狸狸亭鶴橋店（19-minute walk）", mapQuery: "Ponpoco-tei Tsuruhashi, Osaka", mapUrl: "https://maps.app.goo.gl/of5BACcdcyMLvgwD6" },
+        { name: "お好み焼 金のてこ（32-minute walk）", mapQuery: "お好み焼き 金のてこ, Osaka", mapUrl: "https://maps.app.goo.gl/vJuCc9BNcM2jMXgNA" },
+        { name: "たぴおか食堂（9-minute walk）", mapQuery: "Tapioca Shokudo, Osaka", mapUrl: "https://maps.app.goo.gl/8gqwu6psCdG1JYsu7" },
+        { name: "居酒屋 お好み焼き弐八 天王寺（11-minute walk）", mapQuery: "お好み焼き 弐八, Osaka", mapUrl: "https://maps.app.goo.gl/d7gvQnuSbzCsBi4b6" }
       ],
       sushi: [
-        { name: "Sushi Gaoujin (5 min walk)", mapQuery: "鮨 我逢人, Osaka", mapUrl: "https://maps.app.goo.gl/2ajqi6yJULBvW6wz7" },
-        { name: "Sakura Sushi (5 min walk)", mapQuery: "さくら鮨 Katsuyama Osaka", mapUrl: "https://maps.app.goo.gl/QMdHhxLksziE25JS8" },
-        { name: "Marumasa Sushi (7 min walk)", mapQuery: "Marusho Marumasa Sushi Osaka", mapUrl: "https://maps.app.goo.gl/qwqYWDxgV5zyHcXD9" },
-        { name: "Sushi Koiki (8 min walk)", mapQuery: "Sushi Koiki Osaka", mapUrl: "https://maps.app.goo.gl/PNKJqtY5QagfRztZ8" }
+        { name: "鮨 我逢人（5-minute walk）", mapQuery: "鮨 我逢人, Osaka", mapUrl: "https://maps.app.goo.gl/2ajqi6yJULBvW6wz7" },
+        { name: "さくら鮨（5-minute walk）", mapQuery: "さくら鮨 Katsuyama Osaka", mapUrl: "https://maps.app.goo.gl/QMdHhxLksziE25JS8" },
+        { name: "丸正（まるまさ）寿司（7-minute walk）", mapQuery: "Marusho Marumasa Sushi Osaka", mapUrl: "https://maps.app.goo.gl/qwqYWDxgV5zyHcXD9" },
+        { name: "鮨こいき（8-minute walk）", mapQuery: "Sushi Koiki Osaka", mapUrl: "https://maps.app.goo.gl/PNKJqtY5QagfRztZ8" }
       ],
       japanese: [
-        { name: "Hana", mapQuery: "Hana Daido Tennoji Osaka", mapUrl: "" },
-        { name: "Funaya", mapQuery: "Funaya unagi Osaka", mapUrl: "" },
-        { name: "Tontei", mapQuery: "Tontei Daido Osaka", mapUrl: "" },
-        { name: "Yakitori Tommy's", mapQuery: "YAKITORI Tommy's Momodani Osaka", mapUrl: "" },
-        { name: "Aji Konoji", mapQuery: "味 コのじ Osaka", mapUrl: "" }
+        { name: "花（12-minute walk）", mapQuery: "Hana Daido Tennoji Osaka", mapUrl: "https://maps.app.goo.gl/mhLtACKoXSopkPt6A" },
+        { name: "うなぎのお食事処 舟屋（15-minute walk）", mapQuery: "Funaya unagi Osaka", mapUrl: "https://maps.app.goo.gl/9tzjmtbBBS8EhUeA9" },
+        { name: "とんかつ とん亭（11-minute walk）", mapQuery: "Tontei Daido Osaka", mapUrl: "https://maps.app.goo.gl/ZXV2qWBzQK6Eu4YN7" },
+        { name: "YAKITORI Tommy's（11-minute walk）", mapQuery: "YAKITORI Tommy's Momodani Osaka", mapUrl: "https://maps.app.goo.gl/mzwEBi2J56xA4qkZ6" },
+        { name: "コのじ（18-minute walk）", mapQuery: "味 コのじ Osaka", mapUrl: "https://maps.app.goo.gl/RiysFiHvRPGzH6tW8" }
       ],
       breakfast: [
-        { name: "Royal Host", mapQuery: "Royal Host Uehonmachi Osaka", mapUrl: "" },
-        { name: "Manderin", mapQuery: "Manderin Momodani Osaka", mapUrl: "" },
-        { name: "Furano Milk Kobo", mapQuery: "富良野みるく工房 Karasugatsuji Osaka", mapUrl: "" },
-        { name: "American", mapQuery: "American Shinpoincho Osaka", mapUrl: "" }
+        { name: "ロイヤルホスト上本町店（6-minute walk）", mapQuery: "Royal Host Uehonmachi Osaka", mapUrl: "https://maps.app.goo.gl/RQfzsXnmTz7R6FaE7" },
+        { name: "マンデリン（11-minute walk）", mapQuery: "Manderin Momodani Osaka", mapUrl: "https://maps.app.goo.gl/GVAmbnHyw1DcuQ6x5" },
+        { name: "富良野みるく工房（3-minute walk）", mapQuery: "富良野みるく工房 Karasugatsuji Osaka", mapUrl: "https://maps.app.goo.gl/k3SfjaUM5Pg8Hih38" },
+        { name: "アメリカン（3-minute walk）", mapQuery: "American Shinpoincho Osaka", mapUrl: "https://maps.app.goo.gl/ZTVpsdE8f8DTDbuG7" }
       ],
       cafe: [
-        { name: "Old River", mapQuery: "Old River Komiyacho Osaka", mapUrl: "" },
-        { name: "The Coffee Market 145", mapQuery: "The Coffee Market 145 Osaka", mapUrl: "" },
-        { name: "Komeda's Coffee", mapQuery: "Komeda's Coffee Karasugatsuji Osaka", mapUrl: "" },
-        { name: "Mister Donut", mapQuery: "Mister Donut Karasugatsuji Osaka", mapUrl: "" }
+        { name: "オールドリバー（5-minute walk）（Temporarily closed）", mapQuery: "Old River Komiyacho Osaka", mapUrl: "https://maps.app.goo.gl/gb66o8Pan8HqRFGg7" },
+        { name: "The Coffee Market 145（9-minute walk）", mapQuery: "The Coffee Market 145 Osaka", mapUrl: "https://maps.app.goo.gl/voXTgxECbSbFnNT86" },
+        { name: "コメダ珈琲店 桃谷駅前店（10-minute walk）", mapQuery: "Komeda's Coffee Karasugatsuji Osaka", mapUrl: "https://maps.app.goo.gl/az3cgRRPyRByPF9Z6" },
+        { name: "ミスタードーナツ JR桃谷駅前ショップ（11-minute walk）", mapQuery: "Mister Donut Karasugatsuji Osaka", mapUrl: "https://maps.app.goo.gl/hsqtf8U6c8sD37VC8" }
       ],
       noodle: [
-        { name: "Mendokoro Hosoya", mapQuery: "麺処 細屋 Katsuyama Osaka", mapUrl: "" },
-        { name: "Yamaga Soba", mapQuery: "Yamaga Soba Uehonmachi Osaka", mapUrl: "" },
-        { name: "Shitennoji Hayauchi", mapQuery: "Shitennoji Hayauchi Osaka", mapUrl: "" },
-        { name: "Ibukuro Washizukami", mapQuery: "唯一無二のらぁ麺専門店 イ袋ワシづかみ Osaka", mapUrl: "" }
+        { name: "麺処 細屋（6-minute walk）", mapQuery: "麺処 細屋 Katsuyama Osaka", mapUrl: "https://maps.app.goo.gl/HuW16QEZ2ULk9jWX7" },
+        { name: "やまがそば（5-minute walk）", mapQuery: "Yamaga Soba Uehonmachi Osaka", mapUrl: "https://maps.app.goo.gl/AMQMWA7YF9pMmXmP6" },
+        { name: "四天王寺 はやうち（12-minute walk）", mapQuery: "Shitennoji Hayauchi Osaka", mapUrl: "https://maps.app.goo.gl/h9bjeGHbGBhb4huT9" },
+        { name: "唯一無二のらぁ麺専門店 イ袋ワシづかみ（4-minute walk）", mapQuery: "唯一無二のらぁ麺専門店 イ袋ワシづかみ Osaka", mapUrl: "https://maps.app.goo.gl/szJxQAdRfSYakenx5" }
       ],
       yakiniku: [
-        { name: "Yakiniku Seoul", mapQuery: "焼肉 ソウル 桃谷店 Osaka", mapUrl: "" },
-        { name: "Doraku", mapQuery: "Doraku Katsuyama Osaka", mapUrl: "" },
-        { name: "Aji-yoshi", mapQuery: "Yakiniku Aji-yoshi Tsuruhashi Osaka", mapUrl: "" },
-        { name: "Momodani Yakiniku Manoku", mapQuery: "桃谷 焼肉満憶 Osaka", mapUrl: "" }
+        { name: "焼肉 ソウル 桃谷店（11-minute walk）", mapQuery: "焼肉 ソウル 桃谷店 Osaka", mapUrl: "https://maps.app.goo.gl/yHmHLg7rrVPzwNf48" },
+        { name: "道楽（8-minute walk）（Temporarily closed）", mapQuery: "Doraku Katsuyama Osaka", mapUrl: "https://maps.app.goo.gl/Pv5sm1QXyuEmjVBu5" },
+        { name: "焼肉アジヨシ 鶴橋総本店（22-minute walk）", mapQuery: "Yakiniku Aji-yoshi Tsuruhashi Osaka", mapUrl: "https://maps.app.goo.gl/ubJpHF1JUrGRrVTV9" },
+        { name: "焼肉満憶（10-minute walk）", mapQuery: "桃谷 焼肉満憶 Osaka", mapUrl: "https://maps.app.goo.gl/pf5KAv62NnWbL4n98" }
       ],
       western: [
-        { name: "Pomodoro Fresca", mapQuery: "ポモドーロ・フレスカ Osaka", mapUrl: "" },
-        { name: "Minatomachi Bar BamVino", mapQuery: "BamVino 桃谷店 Osaka", mapUrl: "" },
-        { name: "Grill Pokke", mapQuery: "Grill Pokke Osaka", mapUrl: "" },
-        { name: "PASTA KITCHEN GYO", mapQuery: "PASTA KITCHEN GYO Osaka", mapUrl: "" }
+        { name: "ポモドーロ・フレスカ（11-minute walk）", mapQuery: "ポモドーロ・フレスカ Osaka", mapUrl: "https://maps.app.goo.gl/KeveMQEBYP5mL26g6" },
+        { name: "みなとまちバール BamVino（7-minute walk）", mapQuery: "BamVino 桃谷店 Osaka", mapUrl: "https://maps.app.goo.gl/TSsxd1PqgHhhf5ja6" },
+        { name: "グリルポッケ（16-minute walk）", mapQuery: "Grill Pokke Osaka", mapUrl: "https://maps.app.goo.gl/Ce8R8ZTdvBEYQo2Z8" },
+        { name: "PASTA KITCHEN GYO（19-minute walk）", mapQuery: "PASTA KITCHEN GYO Osaka", mapUrl: "https://maps.app.goo.gl/X7A7cUAJWnvUFuCs6" }
       ],
       chinese: [
-        { name: "Chinese Restaurant Kiran", mapQuery: "中国料理 其蘭 Shinpoincho Osaka", mapUrl: "" },
-        { name: "Chinese Restaurant Shin Fukugen", mapQuery: "中華料理 鑫福源 Osaka", mapUrl: "" },
-        { name: "Toen", mapQuery: "桃園 Katsuyamakita Osaka", mapUrl: "" },
-        { name: "Nakayoshi", mapQuery: "なかよし Katsuyama Tennoji Osaka", mapUrl: "" }
+        { name: "中華料理 其蘭（4-minute walk）", mapQuery: "中国料理 其蘭 Shinpoincho Osaka", mapUrl: "https://maps.app.goo.gl/vnnhC3NtBv39yanM9" },
+        { name: "中華料理 鑫福源（10-minute walk）", mapQuery: "中華料理 鑫福源 Osaka", mapUrl: "https://maps.app.goo.gl/kqSH7VT5YquaoFtF7" },
+        { name: "本格中国料理 桃園（15-minute walk）", mapQuery: "桃園 Katsuyamakita Osaka", mapUrl: "https://maps.app.goo.gl/DKKhoA6Ku33h8NeV6" },
+        { name: "なかよし（3-minute walk）", mapQuery: "なかよし Katsuyama Tennoji Osaka", mapUrl: "https://maps.app.goo.gl/wCnKgA7xKUNSBDAr5" }
       ],
       korean: [
-        { name: "Korean Restaurant TonTon", mapQuery: "TonTon Ishigatsujicho Osaka", mapUrl: "" },
-        { name: "momodani chicken&beer", mapQuery: "momodani chicken&beer Osaka", mapUrl: "" },
-        { name: "Tsuki", mapQuery: "月 Dogashiba Osaka Korean restaurant", mapUrl: "" },
-        { name: "Jeju-do Tail Soup Specialty Restaurant", mapQuery: "Jeju-do Tail Soup Osaka", mapUrl: "" }
+        { name: "韓国料理TonTon 한국식당 톤톤（16-minute walk）", mapQuery: "TonTon Ishigatsujicho Osaka", mapUrl: "https://maps.app.goo.gl/AU8v8Z43TbhsSUjr7" },
+        { name: "momodakni chicken&beer（13-minute walk）", mapQuery: "momodani chicken&beer Osaka", mapUrl: "https://maps.app.goo.gl/ii9KtqA7JUEoNdBN6" },
+        { name: "月（12-minute walk）", mapQuery: "月 Dogashiba Osaka Korean restaurant", mapUrl: "https://maps.app.goo.gl/QeSmh2C9e6scYZcw5" },
+        { name: "済州島テールスープ専門店（4-minute walk）", mapQuery: "Jeju-do Tail Soup Osaka", mapUrl: "https://maps.app.goo.gl/BSjDXQJpF6mPTs3z5" }
       ]
     }
   },
@@ -259,7 +259,7 @@ const SITE_DATA = {
   parking: {
     ja: [
       {
-        name: "① タイムスペース真法院町",
+        name: "① タイムスペース真法院町（3-minute walk）",
         mapQuery: "Time Space 8-8 Shinpoincho Tennoji Osaka", mapUrl: "https://maps.app.goo.gl/85SMhNr458EyPrwh6",
         sections: [
           { title: "参考料金", items: ["入庫から24時間まで - 1,500円","夜間最大 (18:00～8:00) - 300円","※最大料金は繰り返しの適用となります。","オールタイム：30分 / 200円"] },
@@ -268,7 +268,7 @@ const SITE_DATA = {
         ]
       },
       {
-        name: "② エコロパーク真法院町 第1駐車場",
+        name: "② エコロパーク真法院町 第1駐車場（3-minute walk）",
         mapQuery: "Ecolo Park Shinpoincho Dai 1 Parking Lot Osaka", mapUrl: "https://maps.app.goo.gl/5AJJjCsi61xr9rpf7",
         sections: [
           { title: "参考料金", items: ["平日：入庫から24時間最大 - 1,600円","土日祝：入庫から24時間最大 - 900円","オールタイム：20分：220円","夜間最大料金：300円"] },
@@ -276,7 +276,7 @@ const SITE_DATA = {
         ]
       },
       {
-        name: "③ 三井パーク勝山1丁目 第2駐車場",
+        name: "③ 三井パーク勝山1丁目 第2駐車場（2-minute walk）",
         mapQuery: "Mitsui Repark Katsuyama 1-chome Dai 2 Osaka", mapUrl: "https://maps.app.goo.gl/AWmYN9UhdV3Vfphi9",
         sections: [
           { title: "参考料金", items: ["入庫後24時間以内最大1,300円（繰り返しあり）","通常料金　0:00～24:00","20分：220円"] },
@@ -286,7 +286,7 @@ const SITE_DATA = {
     ],
     en: [
       {
-        name: "① Times Space Shinpoincho",
+        name: "① Times Space Shinpoincho（3-minute walk）",
         mapQuery: "Time Space 8-8 Shinpoincho Tennoji Osaka", mapUrl: "https://maps.app.goo.gl/85SMhNr458EyPrwh6",
         sections: [
           { title: "Reference Rates", items: ["Up to 24 hours from entry: JPY 1,500","Maximum nighttime rate (18:00–8:00): JPY 300","※The maximum rate applies repeatedly.","All hours: JPY 200 / 30 minutes"] },
@@ -295,7 +295,7 @@ const SITE_DATA = {
         ]
       },
       {
-        name: "② Ecolo Park Shinpoincho Dai 1",
+        name: "② Ecolo Park Shinpoincho Dai 1（3-minute walk）",
         mapQuery: "Ecolo Park Shinpoincho Dai 1 Parking Lot Osaka", mapUrl: "https://maps.app.goo.gl/5AJJjCsi61xr9rpf7",
         sections: [
           { title: "Reference Rates", items: ["Weekdays: Maximum JPY 1,600 for up to 24 hours from entry","Weekends & public holidays: Maximum JPY 900 for up to 24 hours from entry","All hours: JPY 220 / 20 minutes","Maximum nighttime rate: JPY 300"] },
@@ -303,7 +303,7 @@ const SITE_DATA = {
         ]
       },
       {
-        name: "③ Mitsui Repark Katsuyama 1-chome Dai 2",
+        name: "③ Mitsui Repark Katsuyama 1-chome Dai 2（2-minute walk）",
         mapQuery: "Mitsui Repark Katsuyama 1-chome Dai 2 Osaka", mapUrl: "https://maps.app.goo.gl/AWmYN9UhdV3Vfphi9",
         sections: [
           { title: "Reference Rates", items: ["Maximum JPY 1,300 within 24 hours of entry (applies repeatedly)","Standard rate (0:00–24:00): JPY 220 / 20 minutes"] },
