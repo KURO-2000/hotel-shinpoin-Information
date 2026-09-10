@@ -12,6 +12,8 @@ const SITE_DATA = {
     baggageHomeForm: "https://docs.google.com/forms/d/e/1FAIpQLSdJzCLOTR8-pSotb1kBYlF9RAm-E60rdbrS780Zrjh7ehUZUA/viewform?usp=header",
     baggageHotelForm: "https://docs.google.com/forms/d/e/1FAIpQLSdT7oUAataSc-2OVEOC0NP2uNErOY1evWsQgmnxL2KoN7DuEw/viewform?usp=header",
     baggageAirportForm: "https://docs.google.com/forms/d/e/1FAIpQLSdDZusQF1l_E0Ga65bI0u-9lxcOltNNqf1Zb2qVlaeMOSEQfQ/viewform?usp=header",
+    enbaggageHotelForm: "https://forms.gle/RoMRWBpV8zbCKEXi8",
+    enbaggageAirportForm: "https://forms.gle/VfqZH6XhYRiaVjHv7",
     airportBusStop: "https://www.kate.co.jp/busstop/detail/4170",
     airportBusTimetable: "https://www.kate.co.jp/timetable/detail/UH"
   },
@@ -104,7 +106,7 @@ const SITE_DATA = {
       { name: "四天王寺夕陽ヶ丘駅（徒歩10分）", mapQuery: "Shitennoji-mae Yuhigaoka Station, Osaka", mapUrl: "https://maps.app.goo.gl/A3kzURXvZYsUTt8L9" }
     ],
     en: [
-      { name: "JR Momodani Statio（11-minute walk）n", mapQuery: "JR Momodani Station, Osaka", mapUrl: "https://maps.app.goo.gl/TTYmEDYsEfFjzQJM7" },
+      { name: "JR Momodani Station（11-minute walk）", mapQuery: "JR Momodani Station, Osaka", mapUrl: "https://maps.app.goo.gl/TTYmEDYsEfFjzQJM7" },
       { name: "Tsuruhashi Station（21-minute walk）", mapQuery: "Tsuruhashi Station, Osaka", mapUrl: "https://maps.app.goo.gl/SCw3j6wKhGWxoQBp9" },
       { name: "Osaka Uehonmachi Station（18-minute walk）", mapQuery: "Osaka Uehonmachi Station, Osaka", mapUrl: "https://maps.app.goo.gl/zE99NpAgyS6tSxJQ6" },
       { name: "Shitennoji-mae Yuhigaoka Station（10-minute walk）", mapQuery: "Shitennoji-mae Yuhigaoka Station, Osaka", mapUrl: "https://maps.app.goo.gl/A3kzURXvZYsUTt8L9" }
@@ -333,8 +335,8 @@ const SITE_DATA = {
     en: {
       intro: [],
       cards: [
-        { title: "Delivery to Another Hotel", note: "", linkKey: "baggageHotelForm", button: "Open the dedicated form" },
-        { title: "Delivery to the Airport", note: "", linkKey: "baggageAirportForm", button: "Open the dedicated form" }
+        { title: "Delivery to Another Hotel", note: "", linkKey: "enbaggageHotelForm", button: "Open the dedicated form" },
+        { title: "Delivery to the Airport", note: "", linkKey: "enbaggageAirportForm", button: "Open the dedicated form" }
       ]
     }
   },
