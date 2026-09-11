@@ -76,8 +76,11 @@ function home(){
     ["parking","🚗",L.parking,L.menuDescriptions.parking],
     ["baggage","📦",L.baggage,L.menuDescriptions.baggage],
     ["airport","🚌",L.airport,L.menuDescriptions.airport],
-    ["remote","🎛️",L.remote,L.menuDescriptions.remote]
-  ];
+];
+
+if(state.lang === "en"){
+  menus.push(["remote","🎛️",L.remote,L.menuDescriptions.remote]);
+}
 
   return `${topbar()}
   <div class="hero"><h1>${esc(L.title)}</h1><p>${esc(L.subtitle)}</p></div>
