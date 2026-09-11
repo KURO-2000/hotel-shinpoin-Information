@@ -223,12 +223,19 @@ function remote(){
   const R=SITE_DATA.remote[state.lang];
 
   return pageWrap(L.remote,`
-    <div class="notice">${esc(R.notice)}</div>
     <div class="cards">
       ${R.items.map(item=>`
         <div class="info-card">
           <h3>${esc(item.title)}</h3>
-          <div class="remote-image">${esc(item.image)}<br>${esc(R.missing)}</div>
+
+          <div class="remote-image">
+            <img
+              src="${esc(item.image)}"
+              alt="${esc(item.title)}"
+              style="width:100%; height:auto; display:block; border-radius:12px;"
+            >
+          </div>
+
         </div>
       `).join("")}
     </div>
