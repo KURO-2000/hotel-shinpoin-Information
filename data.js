@@ -15,7 +15,9 @@ const SITE_DATA = {
     enbaggageHotelForm: "https://forms.gle/RoMRWBpV8zbCKEXi8",
     enbaggageAirportForm: "https://forms.gle/VfqZH6XhYRiaVjHv7",
     airportBusStop: "https://www.kate.co.jp/busstop/detail/4170",
-    airportBusTimetable: "https://www.kate.co.jp/timetable/detail/UH"
+    airportBusTimetable: "https://www.kate.co.jp/timetable/detail/UH",
+    enairportBusStop: "https://www.kate.co.jp/busstop/detail/4170",
+    enairportBusTimetable: "https://www.kate.co.jp/en/timetable/detail/UH"
   },
 
   text: {
