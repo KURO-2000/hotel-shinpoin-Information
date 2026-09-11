@@ -224,23 +224,67 @@ function remote(){
 
   return pageWrap(L.remote,`
     <div class="cards">
-      ${R.items.map(item=>`
+      ${R.items.map((item,index)=>`
         <div class="info-card">
-          <h3>${esc(item.title)}</h3>
+          <div style="
+            display:flex;
+            justify-content:space-between;
+            align-items:center;
+            gap:12px;
+          ">
+            <h3 style="margin:0;">${esc(item.title)}</h3>
 
-          <div class="remote-image">
+            <button
+              class="secondary"
+              onclick="toggleRemoteImage(${index})"
+              id="remote-btn-${index}"
+            >
+              View
+            </button>
+          </div>
+
+          <div
+            id="remote-image-${index}"
+            style="
+              display:none;
+              margin-top:15px;
+            "
+          >
             <img
               src="${esc(item.image)}"
               alt="${esc(item.title)}"
-              style="width:100%; height:auto; display:block; border-radius:12px;"
+              style="
+                width:100%;
+                height:auto;
+                display:block;
+                border-radius:12px;
+              "
             >
           </div>
-
         </div>
       `).join("")}
     </div>
   `);
 }
+
+function toggleRemoteImage(index){
+  const image = document.getElementById(`remote-image-${index}`);
+  const button = document.getElementById(`remote-btn-${index}`);
+
+  if(!image || !button) return;
+
+  const isOpen = image.style.display !== "none";
+
+  if(isOpen){
+    image.style.display = "none";
+    button.textContent = "View";
+  }else{
+    image.style.display = "block";
+    button.textContent = "Close";
+  }
+}
+
+
 
 function render(){
   const app=document.getElementById("app");
