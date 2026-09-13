@@ -17,7 +17,7 @@ const SITE_DATA = {
     airportBusStop: "https://www.kate.co.jp/busstop/detail/4170",
     airportBusTimetable: "https://www.kate.co.jp/timetable/detail/UH",
     
-    taxiFare: "https://go.goinc.jp/search/result?search_condition_id=4b567a31b40b78ad29608173",
+    taxiFare: "https://go.goinc.jp/charge-search",
     taxiAndroid: "https://play.google.com/store/apps/details?id=com.dena.automotive.taxibell&pcampaignid=web_share",
     taxiIos: "https://apps.apple.com/jp/app/go-タクシーが呼べるアプリ-ai予約-配車-迎車-決済/id1254341709"
   },
