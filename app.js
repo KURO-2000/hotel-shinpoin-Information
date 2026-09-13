@@ -228,7 +228,14 @@ function taxi(){
 
       <div class="info-card">
         <h3>🚕 ${esc(X.fareTitle)}</h3>
+
         <p>${esc(X.fareDescription)}</p>
+
+        ${state.lang === "en" ? `
+          <p>
+            <strong>⚠️ ${esc(X.fareNotice)}</strong>
+          </p>
+        ` : ""}
 
         <div class="actions">
           <a
@@ -244,6 +251,7 @@ function taxi(){
 
       <div class="info-card">
         <h3>📱 ${esc(X.appTitle)}</h3>
+
         <p>${esc(X.appDescription)}</p>
 
         <div class="actions">
@@ -264,6 +272,17 @@ function taxi(){
           >
             ${esc(X.iosButton)}
           </a>
+
+          ${state.lang === "en" ? `
+            <a
+              class="secondary"
+              href="${SITE_DATA.externalLinks.taxiAppGuide}"
+              target="_blank"
+              rel="noopener"
+            >
+              ${esc(X.appGuideButton)}
+            </a>
+          ` : ""}
         </div>
       </div>
 
