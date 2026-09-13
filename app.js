@@ -76,6 +76,7 @@ function home(){
     ["parking","🚗",L.parking,L.menuDescriptions.parking],
     ["baggage","📦",L.baggage,L.menuDescriptions.baggage],
     ["airport","🚌",L.airport,L.menuDescriptions.airport],
+    ["taxi","🚕",L.taxi,L.menuDescriptions.taxi]
 ];
 
 if(state.lang === "en"){
@@ -218,6 +219,58 @@ function airport(){
   `);
 }
 
+function taxi(){
+  const L=T();
+  const X=SITE_DATA.taxi[state.lang];
+
+  return pageWrap(L.taxi,`
+    <div class="cards">
+
+      <div class="info-card">
+        <h3>🚕 ${esc(X.fareTitle)}</h3>
+        <p>${esc(X.fareDescription)}</p>
+
+        <div class="actions">
+          <a
+            class="primary"
+            href="${SITE_DATA.externalLinks.taxiFare}"
+            target="_blank"
+            rel="noopener"
+          >
+            ${esc(X.fareButton)}
+          </a>
+        </div>
+      </div>
+
+      <div class="info-card">
+        <h3>📱 ${esc(X.appTitle)}</h3>
+        <p>${esc(X.appDescription)}</p>
+
+        <div class="actions">
+          <a
+            class="primary"
+            href="${SITE_DATA.externalLinks.taxiAndroid}"
+            target="_blank"
+            rel="noopener"
+          >
+            ${esc(X.androidButton)}
+          </a>
+
+          <a
+            class="secondary"
+            href="${SITE_DATA.externalLinks.taxiIos}"
+            target="_blank"
+            rel="noopener"
+          >
+            ${esc(X.iosButton)}
+          </a>
+        </div>
+      </div>
+
+    </div>
+  `);
+}
+
 function remote(){
   const L=T();
   const R=SITE_DATA.remote[state.lang];
@@ -303,6 +356,7 @@ function render(){
     parking,
     baggage,
     airport,
+    taxi,
     remote
   };
 
