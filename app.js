@@ -235,6 +235,20 @@ function taxi(){
           <p>
             <strong>⚠️ ${esc(X.fareNotice)}</strong>
           </p>
+
+          <div style="margin: 15px 0;">
+            <p style="margin-bottom: 8px;">
+              <strong>Hotel name:</strong> ${esc(X.hotelName)}
+            </p>
+
+            <button
+              class="secondary"
+              id="copy-hotel-button"
+              onclick="copyHotelName()"
+            >
+              📋 ${esc(X.copyHotelButton)}
+            </button>
+          </div>
         ` : ""}
 
         <div class="actions">
@@ -288,6 +302,22 @@ function taxi(){
 
     </div>
   `);
+}
+
+function copyHotelName(){
+  const X=SITE_DATA.taxi.en;
+
+  navigator.clipboard.writeText(X.hotelName).then(()=>{
+    const button=document.getElementById("copy-hotel-button");
+
+    if(button){
+      button.textContent="✓ " + X.copiedHotelButton;
+
+      setTimeout(()=>{
+        button.textContent="📋 " + X.copyHotelButton;
+      },2000);
+    }
+  });
 }
 
 function remote(){
