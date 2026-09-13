@@ -19,7 +19,8 @@ const SITE_DATA = {
     
     taxiFare: "https://go.goinc.jp/charge-search",
     taxiAndroid: "https://play.google.com/store/apps/details?id=com.dena.automotive.taxibell&pcampaignid=web_share",
-    taxiIos: "https://apps.apple.com/jp/app/go-タクシーが呼べるアプリ-ai予約-配車-迎車-決済/id1254341709"
+    taxiIos: "https://apps.apple.com/jp/app/go-タクシーが呼べるアプリ-ai予約-配車-迎車-決済/id1254341709",
+    taxiAppGuide: "https://go.goinc.jp/en"
   },
 
   text: {
@@ -381,12 +382,14 @@ const SITE_DATA = {
     en: {
       fareTitle: "Taxi Fare & Travel Time",
       fareDescription: "Enter your departure point and destination to check the estimated taxi fare and travel time.",
+      fareNotice: "This website is available in Japanese only. Please translate the place name into Japanese, then copy and paste it into the search field.",
       fareButton: "Check Fare & Time",
 
       appTitle: "Taxi App",
       appDescription: "You can request a taxi directly from your smartphone using the app.",
       androidButton: "Android",
-      iosButton: "iPhone / iOS"
+      iosButton: "iPhone / iOS",
+      appGuideButton: "App User Guide"
     }
   },
 
