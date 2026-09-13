@@ -383,6 +383,9 @@ const SITE_DATA = {
       fareTitle: "Taxi Fare & Travel Time",
       fareDescription: "Enter your departure point and destination to check the estimated taxi fare and travel time.",
       fareNotice: "This website is available in Japanese only. Please translate the place name into Japanese, then copy and paste it into the search field.",
+      hotelName: "ホテル真法院大阪",
+      copyHotelButton: "Copy Hotel Name",
+      copiedHotelButton: "Copied!",
       fareButton: "Check Fare & Time",
 
       appTitle: "Taxi App",
