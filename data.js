@@ -16,8 +16,10 @@ const SITE_DATA = {
     enbaggageAirportForm: "https://forms.gle/VfqZH6XhYRiaVjHv7",
     airportBusStop: "https://www.kate.co.jp/busstop/detail/4170",
     airportBusTimetable: "https://www.kate.co.jp/timetable/detail/UH",
-    enairportBusStop: "https://www.kate.co.jp/busstop/detail/4170",
-    enairportBusTimetable: "https://www.kate.co.jp/en/timetable/detail/UH"
+    
+    taxiFare: "https://go.goinc.jp/search/result?search_condition_id=4b567a31b40b78ad29608173",
+    taxiAndroid: "https://play.google.com/store/apps/details?id=com.dena.automotive.taxibell&pcampaignid=web_share",
+    taxiIos: "https://apps.apple.com/jp/app/go-タクシーが呼べるアプリ-ai予約-配車-迎車-決済/id1254341709"
   },
 
   text: {
@@ -28,6 +30,7 @@ const SITE_DATA = {
       title: "ご利用案内",
       subtitle: "ホテル周辺の情報をご案内します。",
       stations: "最寄り駅",
+      taxi: "タクシー",
       convenience: "コンビニ",
       restaurants: "レストラン",
       parking: "コインパーキング",
@@ -44,7 +47,7 @@ const SITE_DATA = {
         parking: "周辺駐車場",
         baggage: "配送フォーム",
         airport: "関西国際空港",
-        remote: "客室設備の操作案内"
+        taxi: "料金・所要時間・配車アプリ"
       },
       categories: {
         okonomiyaki: "お好み焼き / たこ焼き",
@@ -72,6 +75,7 @@ const SITE_DATA = {
       parking: "Coin Parking",
       baggage: "Baggage Delivery Service",
       airport: "Airport Limousine Bus",
+      taxi: "Taxi",
       remote: "Remote Control Guide",
       back: "Back",
       maps: "Open in Google Maps",
@@ -83,6 +87,7 @@ const SITE_DATA = {
         parking: "Nearby parking",
         baggage: "Delivery forms",
         airport: "Kansai International Airport",
+        taxi: "Fare, travel time and taxi app",
         remote: "Room equipment guide"
       },
       categories: {
@@ -361,6 +366,31 @@ const SITE_DATA = {
     }
   },
 
+  taxi: {
+    ja: {
+      fareTitle: "タクシー料金・所要時間検索",
+      fareDescription: "出発地と目的地を入力すると、タクシー料金と所要時間の目安を確認できます。",
+      fareButton: "料金・所要時間を確認",
+
+      appTitle: "タクシーアプリ",
+      appDescription: "スマートフォンのアプリからタクシーを呼ぶことができます。",
+      androidButton: "Android",
+      iosButton: "iPhone / iOS"
+    },
+
+    en: {
+      fareTitle: "Taxi Fare & Travel Time",
+      fareDescription: "Enter your departure point and destination to check the estimated taxi fare and travel time.",
+      fareButton: "Check Fare & Time",
+
+      appTitle: "Taxi App",
+      appDescription: "You can request a taxi directly from your smartphone using the app.",
+      androidButton: "Android",
+      iosButton: "iPhone / iOS"
+    }
+  },
+
+  
   remote: {
     ja: {
       notice: "画像ファイル",
