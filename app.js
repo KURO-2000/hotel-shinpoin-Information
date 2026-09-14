@@ -20,6 +20,17 @@ function T(){
 function go(page, category=null){
   state.page=page;
   state.category=category;
+
+  history.pushState(
+    {
+      lang: state.lang,
+      page: state.page,
+      category: state.category
+    },
+    "",
+    ""
+  );
+
   render();
   window.scrollTo(0,0);
 }
@@ -28,17 +39,60 @@ function setLang(lang){
   state.lang=lang;
   state.page="home";
   state.category=null;
+
   localStorage.setItem("hotelGuideLang",lang);
+
+  history.pushState(
+    {
+      lang: state.lang,
+      page: state.page,
+      category: state.category
+    },
+    "",
+    ""
+  );
+
   render();
+  window.scrollTo(0,0);
 }
 
 function resetLang(){
   state.lang=null;
   state.page="home";
   state.category=null;
+
   localStorage.removeItem("hotelGuideLang");
+
+  history.pushState(
+    {
+      lang: null,
+      page: "home",
+      category: null
+    },
+    "",
+    ""
+  );
+
   render();
+  window.scrollTo(0,0);
 }
+
+window.addEventListener("popstate", (event)=>{
+  if(event.state){
+    state.lang=event.state.lang;
+    state.page=event.state.page || "home";
+    state.category=event.state.category || null;
+
+    if(state.lang){
+      localStorage.setItem("hotelGuideLang",state.lang);
+    }else{
+      localStorage.removeItem("hotelGuideLang");
+    }
+
+    render();
+    window.scrollTo(0,0);
+  }
+});
 
 function topbar(){
   return `<div class="topbar">
@@ -96,7 +150,7 @@ if(state.lang === "en"){
 function pageWrap(title,body,subtitle=""){
   const L=T();
   return `${topbar()}<main class="content">
-    <button class="back" onclick="go('home')">← ${esc(L.back)}</button>
+    <button class="back" onclick="history.back()">← ${esc(L.back)}</button>
     <div class="page-head"><h2>${esc(title)}</h2>${subtitle?`<p>${esc(subtitle)}</p>`:""}</div>
     ${body}
   </main>${footer()}`;
@@ -145,7 +199,7 @@ function restaurantCategory(){
   const list=SITE_DATA.restaurants[state.lang][key] || [];
 
   return `${topbar()}<main class="content">
-    <button class="back" onclick="go('restaurants')">← ${esc(L.back)}</button>
+    <button class="back" onclick="history.back()">← ${esc(L.back)}</button>
     <div class="page-head"><h2>${esc(name)}</h2><p>${esc(L.mapNote)}</p></div>
     <div class="cards">
       ${list.map(x=>`<div class="place-card">
@@ -411,5 +465,15 @@ function render(){
 
   app.innerHTML=(pages[state.page]||home)();
 }
+
+history.replaceState(
+  {
+    lang: state.lang,
+    page: state.page,
+    category: state.category
+  },
+  "",
+  ""
+);
 
 render();
