@@ -124,6 +124,7 @@ function languageScreen(){
 function home(){
   const L=T();
   const menus=[
+    ["hotelInfo","🏨",L.hotelInfo,L.menuDescriptions.hotelInfo],
     ["stations","🚉",L.stations,L.menuDescriptions.stations],
     ["convenience","🏪",L.convenience,L.menuDescriptions.convenience],
     ["restaurants","🍽️",L.restaurants,L.menuDescriptions.restaurants],
@@ -154,6 +155,24 @@ function pageWrap(title,body,subtitle=""){
     <div class="page-head"><h2>${esc(title)}</h2>${subtitle?`<p>${esc(subtitle)}</p>`:""}</div>
     ${body}
   </main>${footer()}`;
+}
+
+function hotelInfo(){
+  const L=T();
+  const H=SITE_DATA.hotelInfo[state.lang];
+
+  return pageWrap(L.hotelInfo,`
+    <div class="cards">
+      ${H.sections.map(section=>`
+        <div class="info-card">
+          <h3>${esc(section.icon)} ${esc(section.title)}</h3>
+          <ul class="detail-list">
+            ${section.items.map(item=>`<li>${esc(item)}</li>`).join("")}
+          </ul>
+        </div>
+      `).join("")}
+    </div>
+  `);
 }
 
 function placesPage(title, list, emoji){
@@ -198,18 +217,91 @@ function restaurantCategory(){
   const name=L.categories[key] || L.restaurants;
   const list=SITE_DATA.restaurants[state.lang][key] || [];
 
+  const photoText = state.lang === "ja" ? "写真を見る" : "View Photo";
+
   return `${topbar()}<main class="content">
     <button class="back" onclick="history.back()">← ${esc(L.back)}</button>
-    <div class="page-head"><h2>${esc(name)}</h2><p>${esc(L.mapNote)}</p></div>
+
+    <div class="page-head">
+      <h2>${esc(name)}</h2>
+      <p>${esc(L.mapNote)}</p>
+    </div>
+
     <div class="cards">
-      ${list.map(x=>`<div class="place-card">
-        <h3>🍽️ ${esc(x.name)}</h3>
-        <div class="actions">
-          <a class="primary" href="${MAP_LINK(x)}" target="_blank" rel="noopener">${esc(L.maps)}</a>
+      ${list.map((x,index)=>`
+        <div class="place-card">
+          <h3>🍽️ ${esc(x.name)}</h3>
+
+          <div class="actions">
+            <a
+              class="primary"
+              href="${MAP_LINK(x)}"
+              target="_blank"
+              rel="noopener"
+            >
+              ${esc(L.maps)}
+            </a>
+
+            ${x.image ? `
+              <button
+                class="secondary"
+                id="restaurant-photo-btn-${index}"
+                onclick="toggleRestaurantPhoto(${index})"
+              >
+                📷 ${photoText}
+              </button>
+            ` : ""}
+          </div>
+
+          ${x.image ? `
+            <div
+              id="restaurant-photo-${index}"
+              style="
+                display:none;
+                margin-top:15px;
+              "
+            >
+              <img
+                src="${esc(x.image)}"
+                alt="${esc(x.name)}"
+                style="
+                  width:100%;
+                  height:auto;
+                  display:block;
+                  border-radius:12px;
+                "
+              >
+            </div>
+          ` : ""}
         </div>
-      </div>`).join("")}
+      `).join("")}
     </div>
   </main>${footer()}`;
+}
+
+function toggleRestaurantPhoto(index){
+  const photo = document.getElementById(`restaurant-photo-${index}`);
+  const button = document.getElementById(`restaurant-photo-btn-${index}`);
+
+  if(!photo || !button) return;
+
+  const isOpen = photo.style.display !== "none";
+
+  if(isOpen){
+    photo.style.display = "none";
+
+    button.textContent =
+      state.lang === "ja"
+        ? "📷 写真を見る"
+        : "📷 View Photo";
+  }else{
+    photo.style.display = "block";
+
+    button.textContent =
+      state.lang === "ja"
+        ? "✕ 写真を閉じる"
+        : "✕ Close Photo";
+  }
 }
 
 function parking(){
@@ -452,6 +544,7 @@ function render(){
 
   const pages={
     home,
+    hotelInfo,
     stations,
     convenience,
     restaurants:restaurantMenu,
