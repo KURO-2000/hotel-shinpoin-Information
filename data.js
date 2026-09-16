@@ -673,6 +673,12 @@ const SITE_DATA = {
           "mapQuery": "Jeju-do Tail Soup Osaka",
           "mapUrl": "https://maps.app.goo.gl/BSjDXQJpF6mPTs3z5",
           "image": "assets/restaurants/korean-4.jpg"
+        },
+        {
+          "name": "test",
+          "mapQuery": "",
+          "mapUrl": "test",
+          "image": "assets/uploads/1789555429989-f598026677e34b90b25ab50595d07263.png"
         }
       ]
     },
@@ -941,6 +947,12 @@ const SITE_DATA = {
           "mapQuery": "Jeju-do Tail Soup Osaka",
           "mapUrl": "https://maps.app.goo.gl/BSjDXQJpF6mPTs3z5",
           "image": "assets/restaurants/korean-4.jpg"
+        },
+        {
+          "name": "test",
+          "mapQuery": "",
+          "mapUrl": "test",
+          "image": "assets/uploads/1789555429989-f598026677e34b90b25ab50595d07263.png"
         }
       ]
     }
@@ -1206,7 +1218,7 @@ const SITE_DATA = {
   "remote": {
     "ja": {
       "notice": "画像ファイル",
-      "missing": "（画像を追加してください）",
+      "missing": "日本語は表示されないので、英語のほうだけ修正してください。",
       "items": [
         {
           "title": "エアコン（2～7階）",
