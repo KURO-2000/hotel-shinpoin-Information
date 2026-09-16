@@ -8,7 +8,7 @@ const MAP_LINK = item => {
 let state = { lang:null, page:"home", category:null };
 
 // Hidden admin entrance. This is only a shortcut; authentication is enforced by the Worker.
-const ADMIN_URL = "https://hotel-shinpoin-admin.hotelshinpoin0701.workers.dev/";
+const ADMIN_URL = "https://hotel-shinpoin-admin.hotelshinpoin0701.workers.dev/entry-start";
 const ADMIN_SEQUENCE = ["hotel","back","hotel","back","hotel","back","restaurants","korean"];
 let adminSequenceIndex = 0;
 let adminSequenceTimer = null;
