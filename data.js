@@ -673,12 +673,6 @@ const SITE_DATA = {
           "mapQuery": "Jeju-do Tail Soup Osaka",
           "mapUrl": "https://maps.app.goo.gl/BSjDXQJpF6mPTs3z5",
           "image": "assets/restaurants/korean-4.jpg"
-        },
-        {
-          "name": "test",
-          "mapQuery": "",
-          "mapUrl": "test",
-          "image": "assets/uploads/1789555429989-f598026677e34b90b25ab50595d07263.png"
         }
       ]
     },
@@ -947,12 +941,6 @@ const SITE_DATA = {
           "mapQuery": "Jeju-do Tail Soup Osaka",
           "mapUrl": "https://maps.app.goo.gl/BSjDXQJpF6mPTs3z5",
           "image": "assets/restaurants/korean-4.jpg"
-        },
-        {
-          "name": "test",
-          "mapQuery": "",
-          "mapUrl": "test",
-          "image": "assets/uploads/1789555429989-f598026677e34b90b25ab50595d07263.png"
         }
       ]
     }
