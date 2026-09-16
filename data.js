@@ -433,6 +433,12 @@ const SITE_DATA = {
           "mapQuery": "お好み焼き 弐八, Osaka",
           "mapUrl": "https://maps.app.goo.gl/d7gvQnuSbzCsBi4b6",
           "image": "assets/restaurants/okonomiyaki-4.jpg"
+        },
+        {
+          "name": "test",
+          "mapQuery": "test",
+          "mapUrl": "test",
+          "image": ""
         }
       ],
       "sushi": [
@@ -459,6 +465,12 @@ const SITE_DATA = {
           "mapQuery": "Sushi Koiki Osaka",
           "mapUrl": "https://maps.app.goo.gl/PNKJqtY5QagfRztZ8",
           "image": "assets/restaurants/sushi-4.jpg"
+        },
+        {
+          "name": "test",
+          "mapQuery": "test",
+          "mapUrl": "test",
+          "image": "assets/uploads/1789548756390-2026-09-16-142102.png"
         }
       ],
       "japanese": [
@@ -701,6 +713,12 @@ const SITE_DATA = {
           "mapQuery": "お好み焼き 弐八, Osaka",
           "mapUrl": "https://maps.app.goo.gl/d7gvQnuSbzCsBi4b6",
           "image": "assets/restaurants/okonomiyaki-4.jpg"
+        },
+        {
+          "name": "test",
+          "mapQuery": "test",
+          "mapUrl": "test",
+          "image": ""
         }
       ],
       "sushi": [
@@ -727,6 +745,12 @@ const SITE_DATA = {
           "mapQuery": "Sushi Koiki Osaka",
           "mapUrl": "https://maps.app.goo.gl/PNKJqtY5QagfRztZ8",
           "image": "assets/restaurants/sushi-4.jpg"
+        },
+        {
+          "name": "test",
+          "mapQuery": "test",
+          "mapUrl": "test",
+          "image": "assets/uploads/1789548756390-2026-09-16-142102.png"
         }
       ],
       "japanese": [
