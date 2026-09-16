@@ -626,7 +626,7 @@ const SITE_DATA = {
           "name": "1",
           "mapQuery": "1",
           "mapUrl": "1",
-          "image": ""
+          "image": "assets/uploads/1789557704158-4ed40c7f610b475a94c275bef4ad42af.png"
         }
       ],
       "chinese": [
@@ -900,7 +900,7 @@ const SITE_DATA = {
           "name": "1",
           "mapQuery": "1",
           "mapUrl": "1",
-          "image": ""
+          "image": "assets/uploads/1789557704158-4ed40c7f610b475a94c275bef4ad42af.png"
         }
       ],
       "chinese": [
