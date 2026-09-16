@@ -7,6 +7,34 @@ const MAP_LINK = item => {
 
 let state = { lang:null, page:"home", category:null };
 
+// Hidden admin entrance. This is only a shortcut; authentication is enforced by the Worker.
+const ADMIN_URL = "https://hotel-shinpoin-admin.hotelshinpoin0701.workers.dev/";
+const ADMIN_SEQUENCE = ["hotel","back","hotel","back","hotel","back","restaurants","korean"];
+let adminSequenceIndex = 0;
+let adminSequenceTimer = null;
+
+function adminTrack(action){
+  if(action === ADMIN_SEQUENCE[adminSequenceIndex]){
+    adminSequenceIndex += 1;
+    clearTimeout(adminSequenceTimer);
+    adminSequenceTimer = setTimeout(()=>{ adminSequenceIndex = 0; }, 120000);
+    if(adminSequenceIndex === ADMIN_SEQUENCE.length){
+      adminSequenceIndex = 0;
+      clearTimeout(adminSequenceTimer);
+      window.location.href = ADMIN_URL;
+      return true;
+    }
+  }else{
+    adminSequenceIndex = action === ADMIN_SEQUENCE[0] ? 1 : 0;
+  }
+  return false;
+}
+
+function adminBack(){
+  adminTrack("back");
+  history.back();
+}
+
 function esc(s){
   return String(s).replace(/[&<>"']/g,m=>({
     "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"
@@ -18,6 +46,11 @@ function T(){
 }
 
 function go(page, category=null){
+  if(page === "hotelInfo") adminTrack("hotel");
+  else if(page === "restaurants") adminTrack("restaurants");
+  else if(page === "restaurantCategory" && category === "korean"){
+    if(adminTrack("korean")) return;
+  }
   state.page=page;
   state.category=category;
 
@@ -151,7 +184,7 @@ if(state.lang === "en"){
 function pageWrap(title,body,subtitle=""){
   const L=T();
   return `${topbar()}<main class="content">
-    <button class="back" onclick="history.back()">← ${esc(L.back)}</button>
+    <button class="back" onclick="adminBack()">← ${esc(L.back)}</button>
     <div class="page-head"><h2>${esc(title)}</h2>${subtitle?`<p>${esc(subtitle)}</p>`:""}</div>
     ${body}
   </main>${footer()}`;
@@ -220,7 +253,7 @@ function restaurantCategory(){
   const photoText = state.lang === "ja" ? "写真を見る" : "View Photo";
 
   return `${topbar()}<main class="content">
-    <button class="back" onclick="history.back()">← ${esc(L.back)}</button>
+    <button class="back" onclick="adminBack()">← ${esc(L.back)}</button>
 
     <div class="page-head">
       <h2>${esc(name)}</h2>
