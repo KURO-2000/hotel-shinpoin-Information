@@ -433,12 +433,6 @@ const SITE_DATA = {
           "mapQuery": "お好み焼き 弐八, Osaka",
           "mapUrl": "https://maps.app.goo.gl/d7gvQnuSbzCsBi4b6",
           "image": "assets/restaurants/okonomiyaki-4.jpg"
-        },
-        {
-          "name": "test",
-          "mapQuery": "test",
-          "mapUrl": "test",
-          "image": "assets/uploads/1789546019543-2026-09-16-144013.png"
         }
       ],
       "sushi": [
@@ -707,12 +701,6 @@ const SITE_DATA = {
           "mapQuery": "お好み焼き 弐八, Osaka",
           "mapUrl": "https://maps.app.goo.gl/d7gvQnuSbzCsBi4b6",
           "image": "assets/restaurants/okonomiyaki-4.jpg"
-        },
-        {
-          "name": "test",
-          "mapQuery": "test",
-          "mapUrl": "test",
-          "image": "assets/uploads/1789546019543-2026-09-16-144013.png"
         }
       ],
       "sushi": [
