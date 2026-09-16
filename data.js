@@ -621,12 +621,6 @@ const SITE_DATA = {
           "mapQuery": "PASTA KITCHEN GYO Osaka",
           "mapUrl": "https://maps.app.goo.gl/X7A7cUAJWnvUFuCs6",
           "image": "assets/restaurants/western-4.jpg"
-        },
-        {
-          "name": "test",
-          "mapQuery": "",
-          "mapUrl": "test",
-          "image": "assets/uploads/1789558176329-979c6b38d24340f68e452102ac1f6b5d.png"
         }
       ],
       "chinese": [
@@ -895,12 +889,6 @@ const SITE_DATA = {
           "mapQuery": "PASTA KITCHEN GYO Osaka",
           "mapUrl": "https://maps.app.goo.gl/X7A7cUAJWnvUFuCs6",
           "image": "assets/restaurants/western-4.jpg"
-        },
-        {
-          "name": "test",
-          "mapQuery": "",
-          "mapUrl": "test",
-          "image": "assets/uploads/1789558176329-979c6b38d24340f68e452102ac1f6b5d.png"
         }
       ],
       "chinese": [
