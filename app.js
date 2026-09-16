@@ -602,4 +602,19 @@ history.replaceState(
   ""
 );
 
-render();
+async function loadLatestSiteData(){
+  try{
+    const r=await fetch("data.js?v="+Date.now(),{cache:"no-store"});
+    if(!r.ok)throw new Error("data.js "+r.status);
+    const src=await r.text();
+    const a=src.indexOf("{"), b=src.lastIndexOf("};");
+    if(a<0||b<0)throw new Error("SITE_DATA parse error");
+    const latest=JSON.parse(src.slice(a,b+1));
+    Object.keys(SITE_DATA).forEach(k=>delete SITE_DATA[k]);
+    Object.assign(SITE_DATA,latest);
+  }catch(e){
+    console.warn("Latest data load failed; using current SITE_DATA.",e);
+  }
+  render();
+}
+loadLatestSiteData();
