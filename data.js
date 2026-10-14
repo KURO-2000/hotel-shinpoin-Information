@@ -417,12 +417,6 @@ const SITE_DATA = {
           "image": "assets/restaurants/okonomiyaki-1.jpg"
         },
         {
-          "name": "お好み焼 金のてこ（徒歩32分）",
-          "mapQuery": "お好み焼き 金のてこ, Osaka",
-          "mapUrl": "https://maps.app.goo.gl/vJuCc9BNcM2jMXgNA",
-          "image": "assets/restaurants/okonomiyaki-2.jpg"
-        },
-        {
           "name": "たぴおか食堂（徒歩9分）",
           "mapQuery": "Tapioca Shokudo, Osaka",
           "mapUrl": "https://maps.app.goo.gl/8gqwu6psCdG1JYsu7",
@@ -683,12 +677,6 @@ const SITE_DATA = {
           "mapQuery": "Ponpoco-tei Tsuruhashi, Osaka",
           "mapUrl": "https://maps.app.goo.gl/of5BACcdcyMLvgwD6",
           "image": "assets/restaurants/okonomiyaki-1.jpg"
-        },
-        {
-          "name": "お好み焼 金のてこ（32-minute walk）",
-          "mapQuery": "お好み焼き 金のてこ, Osaka",
-          "mapUrl": "https://maps.app.goo.gl/vJuCc9BNcM2jMXgNA",
-          "image": "assets/restaurants/okonomiyaki-2.jpg"
         },
         {
           "name": "たぴおか食堂（9-minute walk）",
