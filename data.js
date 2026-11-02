@@ -1125,7 +1125,7 @@ const SITE_DATA = {
         },
         {
           "title": "空港へ配送",
-          "note": "期日：発送希望日の2日前まで",
+          "note": "期日：発送希望日の3日前まで",
           "linkKey": "baggageAirportForm",
           "button": "専用フォームを開く"
         }
@@ -1145,7 +1145,7 @@ const SITE_DATA = {
         },
         {
           "title": "Delivery to the Airport",
-          "note": "Deadline: At least 2 days before your desired shipping date",
+          "note": "Deadline: At least 3 days before your desired shipping date",
           "linkKey": "enbaggageAirportForm",
           "button": "Open the dedicated form"
         }
