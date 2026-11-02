@@ -1262,6 +1262,6 @@ const SITE_DATA = {
     }
   },
   "menuVisibility": {
-    "baggage": false
+    "baggage": true
   }
 };
