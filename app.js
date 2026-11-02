@@ -431,7 +431,7 @@ const DELIVERY_COPY={
     noApp:'The application was not completed.',calendar:'Calendar',custom:'Our front desk staff will review your application.',edit:'Edit application details',saveEdit:'Save changes',editExpired:'Editing is available for 30 minutes after submission. Please contact the front desk.'
   }
 };
-function dlvText(){return DELIVERY_COPY[state.lang==='en'?'en':'ja'];}
+function dlvText(){const lang=state.lang==='en'?'en':'ja';return {...DELIVERY_COPY[lang],...((SITE_DATA.deliveryCopy&&SITE_DATA.deliveryCopy[lang])||{})};}
 function dlvDate(s){
   const digits=String(s||'').replace(/\D/g,'');
   if(!/^\d{8}$/.test(digits))return '';
@@ -554,9 +554,9 @@ function deliveryBasicContinue(event){
 function dlvIntro(){const C=dlvText(),B=SITE_DATA.baggage[state.lang];const note=deliveryState.step==='select'?'':deliveryState.kind==='airport'?C.deadlineAirport:C.deadlineHome;return `<div class="info-card">${B.intro.map(p=>`<p>${esc(p)}</p>`).join('')}${note?`<p class="dlv-intro-notice">${esc(note)}</p>`:''}</div>`;}
 function deliveryChooseView(){
   const C=dlvText(),B=SITE_DATA.baggage[state.lang];
-  return `<div class="dlv-panel"><h3>${esc(C.choose)}</h3><div class="dlv-cards">${B.cards.map(card=>{
-    const kind=/airport/i.test(card.linkKey)?'airport':/home/i.test(card.linkKey)?'home':'hotel';
-    const note=kind==='airport'?C.deadlineAirport:C.deadlineHome;
+  return `<div class="dlv-panel"><h3>${esc(C.choose)}</h3><div class="dlv-cards">${B.cards.filter(card=>card.enabled!==false).map(card=>{
+    const kind=['home','hotel','airport'].includes(card.kind)?card.kind:/airport/i.test(card.linkKey||'')?'airport':/home/i.test(card.linkKey||'')?'home':'hotel';
+    const note=(card.description||'').trim()||(kind==='airport'?C.deadlineAirport:C.deadlineHome);
     return `<div class="info-card"><h3>${esc(card.title)}</h3><p>${esc(note)}</p><button type="button" class="primary dlv-action" onclick="deliverySelect('${kind}')">${esc(C.next)}</button></div>`;
   }).join('')}</div></div>`;
 }
