@@ -380,7 +380,7 @@ function parking(){
 const DELIVERY_API_URL = 'https://hotel-shinpoin-delivery.hotelshinpoin0701.workers.dev';
 // Optional: register a Cloudflare Turnstile widget for your GitHub Pages host and place the PUBLIC sitekey here.
 const DELIVERY_TURNSTILE_SITEKEY = '0x4AAAAAAFwUBMgZJgCVG1n2';
-const deliveryState = {kind:null,step:'select',basic:{},details:{},error:'',requestId:null,busy:false};
+const deliveryState = {kind:null,step:'select',basic:{},details:{},error:'',requestId:null,editToken:null,isEditing:false,busy:false};
 const DELIVERY_COPY={
   ja:{
     choose:'配送方法をお選びください', form:'配送申込フォーム', basic:'まず、お客様の情報をご入力ください。',
@@ -392,9 +392,9 @@ const DELIVERY_COPY={
     airport:'空港名',terminal:'空港ターミナル名',flight:'搭乗便名',boarding:'搭乗日',departure:'出発時刻',
     deskTime:'フロントにお越しになる予定時刻',deskHelp:'任意入力（事前準備に役立ちます）',
     optional:'任意',next:'次へ進む',back:'前へ戻る',send:'配送を申し込む',sending:'送信中...',
-    dateHelp:'YYYY/MM/DD で直接入力、またはカレンダーから選択',
+    dateHelp:'数字8桁（例：20261103）で入力、またはカレンダーから選択',
     incorrectDate:'日付を正しく入力してください。',
-    deadline:'お申し込みはチェックアウト日の前日に限ります。対象日でない場合は、直接1階フロントでお申し込みください。',
+    deadline:'ご自宅・別ホテル宛てのオンライン申込は、チェックアウト日の前日のみ受け付けます。対象日以外は1階フロントでお申し込みください。',
     airportDeadline:'空港宛てのお荷物は搭乗日の3日前までのお申し込みが必要です。この日程ではご希望の期日に到着できません。3日後以降の到着でもよろしければ、1階フロントにて直接お申し込みください。',
     dateMismatch:'送り先ホテルのチェックアウト日はチェックイン日以降を選択してください。',
     privacy:'入力内容をお荷物の配送受付・対応のために利用することに同意します。',
@@ -405,7 +405,7 @@ const DELIVERY_COPY={
     deadlineHome:'チェックアウトの前日のお申し込み',deadlineAirport:'搭乗日の3日前までのお申し込み',
     blocking:'申込期限をご確認ください',toFront:'１階フロントにて直接ご相談ください。',
     noApp:'送信エラーが発生しました。申込は完了していません。',
-    calendar:'カレンダー',custom:'ご入力いただいた情報はフロントスタッフが確認します。'
+    calendar:'カレンダー',custom:'ご入力いただいた情報はフロントスタッフが確認します。',edit:'入力内容を修正',saveEdit:'修正内容を保存',editExpired:'修正可能な時間（30分）を過ぎました。1階フロントまでお申し出ください。'
   },
   en:{
     choose:'Choose a delivery destination',form:'Baggage Delivery Application',basic:'First, enter your room details.',
@@ -417,8 +417,8 @@ const DELIVERY_COPY={
     airport:'Airport name',terminal:'Airport terminal',flight:'Flight number',boarding:'Flight date',departure:'Departure time',
     deskTime:'Expected time to visit the front desk',deskHelp:'Optional (helps us prepare in advance)',
     optional:'Optional',next:'Continue',back:'Back',send:'Submit application',sending:'Submitting...',
-    dateHelp:'Type YYYY/MM/DD, or select from the calendar',incorrectDate:'Enter a valid date.',
-    deadline:'Online applications are accepted only on the day before check-out. Otherwise, please apply directly at the first-floor front desk.',
+    dateHelp:'Enter 8 digits (e.g. 20261103) or choose a date from the calendar',incorrectDate:'Enter a valid date.',
+    deadline:'Home and hotel deliveries can be requested online only on the day before check-out. Otherwise, please apply directly at the first-floor front desk.',
     airportDeadline:'Airport deliveries must be requested at least 3 days before your flight. We cannot deliver in time for this schedule. If delivery after 3 days is acceptable, please ask at the first-floor front desk.',
     dateMismatch:'The destination check-out date must be on or after its check-in date.',
     privacy:'I agree that my submitted information will be used for baggage-delivery service.',
@@ -428,31 +428,37 @@ const DELIVERY_COPY={
     home:'Delivery to your home',hotel:'Delivery to another hotel',airportName:'Delivery to the airport',
     deadlineHome:'Apply the day before check-out',deadlineAirport:'Apply at least 3 days before your flight',
     blocking:'Please check the application deadline',toFront:'Please speak with the first-floor front desk.',
-    noApp:'The application was not completed.',calendar:'Calendar',custom:'Our front desk staff will review your application.'
+    noApp:'The application was not completed.',calendar:'Calendar',custom:'Our front desk staff will review your application.',edit:'Edit application details',saveEdit:'Save changes',editExpired:'Editing is available for 30 minutes after submission. Please contact the front desk.'
   }
 };
 function dlvText(){return DELIVERY_COPY[state.lang==='en'?'en':'ja'];}
 function dlvDate(s){
-  const z=String(s||'').trim().replace(/[年月]/g,'/').replace(/日/g,'').replace(/-/g,'/');
-  const m=z.match(/^(\d{4})\/(\d{1,2})\/(\d{1,2})$/);
-  if(!m)return '';
-  const iso=`${m[1]}-${m[2].padStart(2,'0')}-${m[3].padStart(2,'0')}`;
+  const digits=String(s||'').replace(/\D/g,'');
+  if(!/^\d{8}$/.test(digits))return '';
+  const iso=`${digits.slice(0,4)}-${digits.slice(4,6)}-${digits.slice(6,8)}`;
   const d=new Date(iso+'T00:00:00Z');
   return !Number.isNaN(d.getTime())&&d.toISOString().slice(0,10)===iso?iso:'';
 }
+function dlvDateDigits(s){return String(s||'').replace(/\D/g,'').slice(0,8);}
 function dlvToday(){
   const p=new Intl.DateTimeFormat('en-US',{timeZone:'Asia/Tokyo',year:'numeric',month:'2-digit',day:'2-digit'}).formatToParts(new Date());
   const get=k=>p.find(x=>x.type===k).value;
   return `${get('year')}-${get('month')}-${get('day')}`;
 }
 function dlvDays(a,b){return (Date.parse(a+'T00:00:00Z')-Date.parse(b+'T00:00:00Z'))/86400000;}
-function dlvDateField(key,label,value='',required=true){
-  const C=dlvText();
-  return `<div class="dlv-field"><label for="dlv-${key}">${esc(label)}${required?' <span class="dlv-star">*</span>':''}</label>
-    <div class="dlv-date-row"><input id="dlv-${key}" name="${key}" inputmode="numeric" autocomplete="off" type="text" placeholder="YYYY/MM/DD" value="${esc(value)}" ${required?'required':''} maxlength="10">
-      <label class="dlv-calendar-label">${esc(C.calendar)}<input aria-label="${esc(label)} - ${esc(C.calendar)}" type="date" value="${esc(dlvDate(value))}" onchange="deliveryDateCalendar(this,'${key}')"></label></div>
-    <small>${esc(C.dateHelp)}</small></div>`;
+function deliveryDateTyping(input){
+  const digits=input.value.replace(/\D/g,'').slice(0,8);
+  if(input.value!==digits)input.value=digits;
 }
+function dlvDateField(key,label,value='',required=true){
+  const C=dlvText(),digits=dlvDateDigits(value),iso=dlvDate(value);
+  return `<div class="dlv-field"><label for="dlv-${key}">${esc(label)}${required?' <span class="dlv-star">*</span>':''}</label>
+    <div class="dlv-date-row">
+      <input id="dlv-${key}" name="${key}" inputmode="numeric" autocomplete="off" type="text" placeholder="YYYYMMDD" pattern="[0-9]{8}" maxlength="8" value="${esc(digits)}" oninput="deliveryDateTyping(this)" ${required?'required':''}>
+      <label class="dlv-calendar-picker"><span>📅 ${esc(C.calendar)}</span><input aria-label="${esc(label)} - ${esc(C.calendar)}" type="date" value="${esc(iso)}" onchange="deliveryDateCalendar(this,'${key}')"></label>
+    </div><small>${esc(C.dateHelp)}</small></div>`;
+}
+
 function dlvField(key,label,value='',type='text',required=true,hint='',attrs=''){
   return `<div class="dlv-field"><label for="dlv-${key}">${esc(label)}${required?' <span class="dlv-star">*</span>':''}</label>
   <input id="dlv-${key}" name="${key}" type="${type}" value="${esc(value)}" ${required?'required':''} ${attrs}>
@@ -460,19 +466,27 @@ function dlvField(key,label,value='',type='text',required=true,hint='',attrs='')
 }
 function dlvError(){return `<p class="dlv-error" id="dlv-error" role="alert" ${deliveryState.error?'':'hidden'}>${esc(deliveryState.error)}</p>`;}
 function dlvShowError(message){deliveryState.error=message;const el=document.getElementById('dlv-error');if(el){el.textContent=message;el.hidden=!message;el.scrollIntoView({block:'nearest'});}}
-function deliveryDateCalendar(input,key){const target=document.getElementById('dlv-'+key);if(target&&input.value)target.value=input.value.replace(/-/g,'/');}
-function deliverySelect(kind){deliveryState.kind=kind;deliveryState.step='basic';deliveryState.error='';deliveryState.basic={};deliveryState.details={};deliveryState.requestId=null;render();window.scrollTo(0,0);}
+function deliveryDateCalendar(input,key){const target=document.getElementById('dlv-'+key);if(target&&input.value){target.value=dlvDateDigits(input.value);target.dispatchEvent(new Event('input',{bubbles:true}));}}
+function deliverySelect(kind){deliveryState.kind=kind;deliveryState.step='basic';deliveryState.error='';deliveryState.basic={};deliveryState.details={};deliveryState.requestId=null;deliveryState.editToken=null;deliveryState.isEditing=false;render();window.scrollTo(0,0);}
 function deliveryBack(){if(deliveryState.step==='details'){deliveryState.step='basic'}else deliveryState.step='select';deliveryState.error='';render();window.scrollTo(0,0);}
 function deliveryBasicContinue(event){
   event.preventDefault();
   const C=dlvText(),form=event.currentTarget,fd=new FormData(form);
   const basic={room:String(fd.get('room')||'').trim(),name:String(fd.get('name')||'').trim(),checkoutDate:dlvDate(fd.get('checkoutDate'))};
   if(!basic.checkoutDate){dlvShowError(C.incorrectDate);return false;}
+  if(deliveryState.kind==='airport'){
+    basic.boardingDate=dlvDate(fd.get('boardingDate'));
+    if(!basic.boardingDate){deliveryState.basic=basic;dlvShowError(C.incorrectDate);return false;}
+    if(dlvDays(basic.boardingDate,dlvToday())<3){deliveryState.basic=basic;dlvShowError(C.airportDeadline);return false;}
+  }else if(dlvDays(basic.checkoutDate,dlvToday())!==1){
+    deliveryState.basic=basic;dlvShowError(C.deadline);return false;
+  }
   deliveryState.basic=basic;
-  if(dlvDays(basic.checkoutDate,dlvToday())!==1){dlvShowError(C.deadline);return false;}
-  deliveryState.details={...deliveryState.details,room:basic.room,name:basic.name};deliveryState.error='';deliveryState.step='details';render();window.scrollTo(0,0);return false;
+  deliveryState.details={...deliveryState.details,room:basic.room,name:basic.name};
+  if(deliveryState.kind==='airport')deliveryState.details.boardingDate=basic.boardingDate;
+  deliveryState.error='';deliveryState.step='details';render();window.scrollTo(0,0);return false;
 }
-function dlvIntro(){const C=dlvText(), B=SITE_DATA.baggage[state.lang];return `<div class="info-card">${B.intro.map(p=>`<p>${esc(p)}</p>`).join('')}<p class="dlv-intro-notice">${esc(C.deadlineHome)} / ${esc(C.deadlineAirport)}</p></div>`;}
+function dlvIntro(){const C=dlvText(),B=SITE_DATA.baggage[state.lang];const note=deliveryState.step==='select'?'':deliveryState.kind==='airport'?C.deadlineAirport:C.deadlineHome;return `<div class="info-card">${B.intro.map(p=>`<p>${esc(p)}</p>`).join('')}${note?`<p class="dlv-intro-notice">${esc(note)}</p>`:''}</div>`;}
 function deliveryChooseView(){
   const C=dlvText(),B=SITE_DATA.baggage[state.lang];
   return `<div class="dlv-panel"><h3>${esc(C.choose)}</h3><div class="dlv-cards">${B.cards.map(card=>{
@@ -487,7 +501,7 @@ function deliveryBasicView(){
     <p>${esc(deliveryState.kind==='airport'?C.deadlineAirport:C.deadlineHome)}</p>
     <form id="delivery-basic" onsubmit="return deliveryBasicContinue(event)">
       <div class="dlv-grid">${dlvField('room',C.room,x.room||'','text',true,'','maxlength="20"')}${dlvField('name',C.name,x.name||'','text',true,'','maxlength="100"')}</div>
-      ${dlvDateField('checkoutDate',C.checkout,x.checkoutDate||'')}${dlvError()}
+      ${dlvDateField('checkoutDate',C.checkout,x.checkoutDate||'')}${deliveryState.kind==='airport'?dlvDateField('boardingDate',C.boarding,x.boardingDate||deliveryState.details.boardingDate||''):''}${dlvError()}
       <button type="submit" class="primary dlv-action">${esc(C.next)}</button>
     </form></div>`;
 }
@@ -523,17 +537,18 @@ function deliveryDetailsView(){
     <h3>${esc(C.form)} — ${esc(kind==='home'?C.home:kind==='hotel'?C.hotel:C.airportName)}</h3>
     <form id="delivery-details" onsubmit="return deliverySubmit(event)">
       ${basic}${additional}${quantity}${deskTime}${dlvPayment(kind,C)}${homeAddress}
-      <label class="dlv-consent"><input name="privacyConsent" type="checkbox" required ${x.privacyConsent?'checked':''}> ${esc(C.privacy)}</label>
+      <label class="dlv-consent"><input name="privacyConsent" type="checkbox" ${x.privacyConsent?'checked':''}> ${esc(C.privacy)}（${esc(C.optional)}）</label>
       <div class="dlv-honeypot" aria-hidden="true"><label>Website<input name="website" tabindex="-1" autocomplete="off"></label></div>
       ${DELIVERY_TURNSTILE_SITEKEY?'<div id="delivery-turnstile"></div>':''}
       ${dlvError()}<p class="dlv-muted">${esc(C.custom)}</p>
-      <button type="submit" class="primary dlv-action" id="delivery-submit" ${deliveryState.busy?'disabled':''}>${esc(deliveryState.busy?C.sending:C.send)}</button>
+      <button type="submit" class="primary dlv-action" id="delivery-submit" ${deliveryState.busy?'disabled':''}>${esc(deliveryState.busy?C.sending:deliveryState.isEditing?C.saveEdit:C.send)}</button>
     </form></div>`;
 }
 function deliveryDetailsBack(){
   const form=document.getElementById('delivery-details');if(form)deliveryState.details=Object.fromEntries(new FormData(form));
   deliveryState.basic.room=deliveryState.details.room||deliveryState.basic.room;
   deliveryState.basic.name=deliveryState.details.name||deliveryState.basic.name;
+  if(deliveryState.kind==='airport'&&deliveryState.details.boardingDate)deliveryState.basic.boardingDate=dlvDate(deliveryState.details.boardingDate);
   deliveryState.step='basic';deliveryState.error='';render();window.scrollTo(0,0);
 }
 function dlvTime(s){return /^\d{2}:\d{2}$/.test(String(s||''))?s:'';}
@@ -544,6 +559,7 @@ async function deliverySubmit(event){
   for(const k of dateKeys)if(k in o){o[k]=dlvDate(o[k]);if(!o[k]){dlvShowError(C.incorrectDate);return false;}}
   if(deliveryState.kind==='hotel'&&dlvDays(o.destinationCheckout,o.destinationCheckin)<0){dlvShowError(C.dateMismatch);return false;}
   if(deliveryState.kind==='airport'&&dlvDays(o.boardingDate,dlvToday())<3){dlvShowError(C.airportDeadline);return false;}
+  if(deliveryState.kind!=='airport'&&dlvDays(deliveryState.basic.checkoutDate,dlvToday())!==1){dlvShowError(C.deadline);return false;}
   const p={...o,kind:deliveryState.kind,checkoutDate:deliveryState.basic.checkoutDate,
     quantity:Number(o.quantity),privacyConsent:fd.has('privacyConsent'),frontDeskTime:dlvTime(o.frontDeskTime)};
   delete p.website;
@@ -553,13 +569,15 @@ async function deliverySubmit(event){
   const button=document.getElementById('delivery-submit');if(button){button.disabled=true;button.textContent=C.sending;}
   try{
     const token=DELIVERY_TURNSTILE_SITEKEY&&window.turnstile?window.turnstile.getResponse():'';
-    const res=await fetch(DELIVERY_API_URL+'/api/deliveries',{
+    const endpoint=deliveryState.isEditing?'/api/deliveries/update':'/api/deliveries';
+    const res=await fetch(DELIVERY_API_URL+endpoint,{
       method:'POST',headers:{'Content-Type':'application/json'},
-      body:JSON.stringify({requestId:deliveryState.requestId,application:p,website:o.website||'',turnstileToken:token})
+      body:JSON.stringify({requestId:deliveryState.requestId,editToken:deliveryState.editToken,application:p,website:o.website||'',turnstileToken:token})
     });
     let result;try{result=await res.json();}catch{result={};}
     if(!res.ok||result.ok!==true)throw new Error(result.error||C.error);
-    deliveryState.step='success';deliveryState.error='';render();window.scrollTo(0,0);
+    deliveryState.editToken=result.editToken||deliveryState.editToken;
+    deliveryState.isEditing=false;deliveryState.step='success';deliveryState.error='';render();window.scrollTo(0,0);
   }catch(e){
     console.warn('Delivery application failure:',e);
     dlvShowError(`${C.noApp} ${e.message||C.error}`);
@@ -570,7 +588,8 @@ async function deliverySubmit(event){
   }
   return false;
 }
-function deliverySuccessView(){const C=dlvText();return `<div class="info-card dlv-panel dlv-success"><h3>✓ ${esc(C.completed)}</h3><p>${esc(C.completedMessage).replace(/\n/g,'<br>')}</p><p class="dlv-muted">${esc(C.custom)}</p></div>`;}
+function deliveryEdit(){if(!deliveryState.editToken)return;deliveryState.isEditing=true;deliveryState.step='details';deliveryState.error='';render();window.scrollTo(0,0);}
+function deliverySuccessView(){const C=dlvText();return `<div class="info-card dlv-panel dlv-success"><h3>✓ ${esc(C.completed)}</h3><p>${esc(C.completedMessage).replace(/\n/g,'<br>')}</p><p class="dlv-muted">${esc(C.custom)}</p>${deliveryState.editToken?`<button type="button" class="secondary dlv-action" onclick="deliveryEdit()">✎ ${esc(C.edit)}</button>`:''}</div>`;}
 function dlvInstallStyle(){
   if(document.getElementById('hotel-delivery-style'))return;
   const css=`
@@ -579,8 +598,8 @@ function dlvInstallStyle(){
     .dlv-star{color:#c32929}.dlv-field input{min-width:0;width:100%;box-sizing:border-box;padding:13px 12px;border:1px solid #ccd0d8;border-radius:9px;background:#fff;font:inherit;font-size:16px;color:#152033}
     .dlv-field small,.dlv-muted{color:#626c7e;font-size:13px}.dlv-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
     .dlv-date-row{display:flex;align-items:center;gap:10px;min-width:0}.dlv-date-row>input{flex:1;min-width:0}
-    .dlv-calendar-label{display:flex;align-items:center;gap:6px;flex-shrink:0;font-size:13px!important;font-weight:500!important;background:#f1f3f6;padding:4px 9px;border-radius:7px}
-    .dlv-calendar-label input[type=date]{font-size:14px;width:46px;max-width:46px;min-width:46px;padding:5px 0;border:0;background:transparent}
+    .dlv-calendar-picker{position:relative;display:inline-flex;align-items:center;justify-content:center;box-sizing:border-box;flex:0 0 auto;min-width:145px;padding:12px 15px;border-radius:9px;background:#f1f3f6;color:#1b2635;font-size:14px!important;font-weight:600!important;white-space:nowrap;cursor:pointer;overflow:hidden}
+    .dlv-calendar-picker input[type=date]{position:absolute!important;inset:0!important;width:100%!important;height:100%!important;min-width:0!important;max-width:none!important;opacity:0;cursor:pointer;margin:0;padding:0;z-index:1}
     .dlv-action{margin-top:14px;display:inline-block;padding:13px 20px;cursor:pointer;border:none;border-radius:10px;font-size:15px;font-weight:700}
     .dlv-back{border:none;background:transparent;color:#2952c5;cursor:pointer;padding:4px 0 15px;font:inherit;font-weight:700}
     .dlv-cards{display:grid;gap:12px}.dlv-cards>.info-card{margin:0}.dlv-payment{border:1px solid #d4d8e0;border-radius:10px;padding:14px;margin:17px 0}
@@ -589,7 +608,7 @@ function dlvInstallStyle(){
     .dlv-error{padding:14px;border-radius:9px;background:#fff0f0;border:1px solid #c94d4d;color:#a52525;line-height:1.65}.dlv-error[hidden]{display:none}
     .dlv-honeypot{position:absolute!important;left:-10000px!important;width:1px;height:1px;overflow:hidden}
     .dlv-success{line-height:2}.dlv-success h3{color:#136c43}.dlv-success p{margin:12px 0}.dlv-intro-notice{font-weight:700}
-    @media(max-width:650px){.dlv-grid{grid-template-columns:1fr}.dlv-date-row{flex-wrap:wrap}.dlv-calendar-label{width:auto}.dlv-field input{font-size:16px}}
+    @media(max-width:650px){.dlv-grid{grid-template-columns:1fr}.dlv-date-row{flex-wrap:wrap}.dlv-calendar-picker{min-width:145px}.dlv-field input{font-size:16px}}
   `;
   const s=document.createElement('style');s.id='hotel-delivery-style';s.textContent=css;document.head.appendChild(s);
 }
