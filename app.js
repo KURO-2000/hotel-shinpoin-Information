@@ -376,26 +376,240 @@ function parking(){
   `);
 }
 
+// Separate guest delivery workflow. The public site never stores names/addresses in GitHub.
+const DELIVERY_API_URL = 'https://hotel-shinpoin-delivery.hotelshinpoin0701.workers.dev';
+// Optional: register a Cloudflare Turnstile widget for your GitHub Pages host and place the PUBLIC sitekey here.
+const DELIVERY_TURNSTILE_SITEKEY = '0x4AAAAAAFwUBMgZJgCVG1n2';
+const deliveryState = {kind:null,step:'select',basic:{},details:{},error:'',requestId:null,busy:false};
+const DELIVERY_COPY={
+  ja:{
+    choose:'配送方法をお選びください', form:'配送申込フォーム', basic:'まず、お客様の情報をご入力ください。',
+    room:'お部屋番号',name:'お宛名',checkout:'チェックアウト日',phone:'お電話番号',quantity:'お荷物の点数',
+    pre:'元払い（ホテルにてお支払い / 現金のみ）',cod:'着払い（お荷物お受取り時にお支払い）',payment:'発送方法',
+    postal:'郵便番号',address:'ご住所',destinationHotel:'送り先のホテル名',hotelPhone:'送り先ホテルの電話番号',
+    hotelPhoneHelp:'（送り先ホテルへの確認を円滑に行うため、入力にご協力ください。）',
+    reservation:'送り先ホテルでのご予約名',checkin:'送り先ホテルのチェックイン日',out:'送り先ホテルのチェックアウト日',
+    airport:'空港名',terminal:'空港ターミナル名',flight:'搭乗便名',boarding:'搭乗日',departure:'出発時刻',
+    deskTime:'フロントにお越しになる予定時刻',deskHelp:'任意入力（事前準備に役立ちます）',
+    optional:'任意',next:'次へ進む',back:'前へ戻る',send:'配送を申し込む',sending:'送信中...',
+    dateHelp:'YYYY/MM/DD で直接入力、またはカレンダーから選択',
+    incorrectDate:'日付を正しく入力してください。',
+    deadline:'お申し込みはチェックアウト日の前日に限ります。対象日でない場合は、直接1階フロントでお申し込みください。',
+    airportDeadline:'空港宛てのお荷物は搭乗日の3日前までのお申し込みが必要です。この日程ではご希望の期日に到着できません。3日後以降の到着でもよろしければ、1階フロントにて直接お申し込みください。',
+    dateMismatch:'送り先ホテルのチェックアウト日はチェックイン日以降を選択してください。',
+    privacy:'入力内容をお荷物の配送受付・対応のために利用することに同意します。',
+    error:'送信できませんでした。もう一度お試しいただくか、1階フロントにお申し出ください。',
+    completed:'お申し込みを受け付けました',
+    completedMessage:'ご協力ありがとうございました。\nお荷物の大きさ測定・配送料の精算を行います。\nお手数ではございますが、１階フロントまでお越しください。\nその際、配送をご希望するお荷物をご持参くださいませ。\nお客様のお越しをお待ちしております。',
+    home:'ご自宅へ配送',hotel:'別ホテル様へ配送',airportName:'空港へ配送',
+    deadlineHome:'チェックアウトの前日のお申し込み',deadlineAirport:'搭乗日の3日前までのお申し込み',
+    blocking:'申込期限をご確認ください',toFront:'１階フロントにて直接ご相談ください。',
+    noApp:'送信エラーが発生しました。申込は完了していません。',
+    calendar:'カレンダー',custom:'ご入力いただいた情報はフロントスタッフが確認します。'
+  },
+  en:{
+    choose:'Choose a delivery destination',form:'Baggage Delivery Application',basic:'First, enter your room details.',
+    room:'Room number',name:'Recipient name',checkout:'Check-out date',phone:'Phone number',quantity:'Number of pieces',
+    pre:'Prepaid (pay at the hotel / cash only)',cod:'Cash on delivery (pay when receiving your baggage)',payment:'Payment method',
+    postal:'Postal code',address:'Delivery address',destinationHotel:'Destination hotel name',hotelPhone:'Destination hotel phone number',
+    hotelPhoneHelp:'(Optional; helps us confirm details with the destination hotel.)',
+    reservation:'Reservation name at destination hotel',checkin:'Destination hotel check-in date',out:'Destination hotel check-out date',
+    airport:'Airport name',terminal:'Airport terminal',flight:'Flight number',boarding:'Flight date',departure:'Departure time',
+    deskTime:'Expected time to visit the front desk',deskHelp:'Optional (helps us prepare in advance)',
+    optional:'Optional',next:'Continue',back:'Back',send:'Submit application',sending:'Submitting...',
+    dateHelp:'Type YYYY/MM/DD, or select from the calendar',incorrectDate:'Enter a valid date.',
+    deadline:'Online applications are accepted only on the day before check-out. Otherwise, please apply directly at the first-floor front desk.',
+    airportDeadline:'Airport deliveries must be requested at least 3 days before your flight. We cannot deliver in time for this schedule. If delivery after 3 days is acceptable, please ask at the first-floor front desk.',
+    dateMismatch:'The destination check-out date must be on or after its check-in date.',
+    privacy:'I agree that my submitted information will be used for baggage-delivery service.',
+    error:'Your application could not be submitted. Please retry or contact the first-floor front desk.',
+    completed:'Application received',
+    completedMessage:'Thank you for your cooperation.\nWe will measure your baggage and calculate the shipping fee.\nPlease come to the first-floor front desk and bring the baggage you wish to send.\nWe look forward to assisting you.',
+    home:'Delivery to your home',hotel:'Delivery to another hotel',airportName:'Delivery to the airport',
+    deadlineHome:'Apply the day before check-out',deadlineAirport:'Apply at least 3 days before your flight',
+    blocking:'Please check the application deadline',toFront:'Please speak with the first-floor front desk.',
+    noApp:'The application was not completed.',calendar:'Calendar',custom:'Our front desk staff will review your application.'
+  }
+};
+function dlvText(){return DELIVERY_COPY[state.lang==='en'?'en':'ja'];}
+function dlvDate(s){
+  const z=String(s||'').trim().replace(/[年月]/g,'/').replace(/日/g,'').replace(/-/g,'/');
+  const m=z.match(/^(\d{4})\/(\d{1,2})\/(\d{1,2})$/);
+  if(!m)return '';
+  const iso=`${m[1]}-${m[2].padStart(2,'0')}-${m[3].padStart(2,'0')}`;
+  const d=new Date(iso+'T00:00:00Z');
+  return !Number.isNaN(d.getTime())&&d.toISOString().slice(0,10)===iso?iso:'';
+}
+function dlvToday(){
+  const p=new Intl.DateTimeFormat('en-US',{timeZone:'Asia/Tokyo',year:'numeric',month:'2-digit',day:'2-digit'}).formatToParts(new Date());
+  const get=k=>p.find(x=>x.type===k).value;
+  return `${get('year')}-${get('month')}-${get('day')}`;
+}
+function dlvDays(a,b){return (Date.parse(a+'T00:00:00Z')-Date.parse(b+'T00:00:00Z'))/86400000;}
+function dlvDateField(key,label,value='',required=true){
+  const C=dlvText();
+  return `<div class="dlv-field"><label for="dlv-${key}">${esc(label)}${required?' <span class="dlv-star">*</span>':''}</label>
+    <div class="dlv-date-row"><input id="dlv-${key}" name="${key}" inputmode="numeric" autocomplete="off" type="text" placeholder="YYYY/MM/DD" value="${esc(value)}" ${required?'required':''} maxlength="10">
+      <label class="dlv-calendar-label">${esc(C.calendar)}<input aria-label="${esc(label)} - ${esc(C.calendar)}" type="date" value="${esc(dlvDate(value))}" onchange="deliveryDateCalendar(this,'${key}')"></label></div>
+    <small>${esc(C.dateHelp)}</small></div>`;
+}
+function dlvField(key,label,value='',type='text',required=true,hint='',attrs=''){
+  return `<div class="dlv-field"><label for="dlv-${key}">${esc(label)}${required?' <span class="dlv-star">*</span>':''}</label>
+  <input id="dlv-${key}" name="${key}" type="${type}" value="${esc(value)}" ${required?'required':''} ${attrs}>
+  ${hint?`<small>${esc(hint)}</small>`:''}</div>`;
+}
+function dlvError(){return `<p class="dlv-error" id="dlv-error" role="alert" ${deliveryState.error?'':'hidden'}>${esc(deliveryState.error)}</p>`;}
+function dlvShowError(message){deliveryState.error=message;const el=document.getElementById('dlv-error');if(el){el.textContent=message;el.hidden=!message;el.scrollIntoView({block:'nearest'});}}
+function deliveryDateCalendar(input,key){const target=document.getElementById('dlv-'+key);if(target&&input.value)target.value=input.value.replace(/-/g,'/');}
+function deliverySelect(kind){deliveryState.kind=kind;deliveryState.step='basic';deliveryState.error='';deliveryState.basic={};deliveryState.details={};deliveryState.requestId=null;render();window.scrollTo(0,0);}
+function deliveryBack(){if(deliveryState.step==='details'){deliveryState.step='basic'}else deliveryState.step='select';deliveryState.error='';render();window.scrollTo(0,0);}
+function deliveryBasicContinue(event){
+  event.preventDefault();
+  const C=dlvText(),form=event.currentTarget,fd=new FormData(form);
+  const basic={room:String(fd.get('room')||'').trim(),name:String(fd.get('name')||'').trim(),checkoutDate:dlvDate(fd.get('checkoutDate'))};
+  if(!basic.checkoutDate){dlvShowError(C.incorrectDate);return false;}
+  deliveryState.basic=basic;
+  if(dlvDays(basic.checkoutDate,dlvToday())!==1){dlvShowError(C.deadline);return false;}
+  deliveryState.details={...deliveryState.details,room:basic.room,name:basic.name};deliveryState.error='';deliveryState.step='details';render();window.scrollTo(0,0);return false;
+}
+function dlvIntro(){const C=dlvText(), B=SITE_DATA.baggage[state.lang];return `<div class="info-card">${B.intro.map(p=>`<p>${esc(p)}</p>`).join('')}<p class="dlv-intro-notice">${esc(C.deadlineHome)} / ${esc(C.deadlineAirport)}</p></div>`;}
+function deliveryChooseView(){
+  const C=dlvText(),B=SITE_DATA.baggage[state.lang];
+  return `<div class="dlv-panel"><h3>${esc(C.choose)}</h3><div class="dlv-cards">${B.cards.map(card=>{
+    const kind=/airport/i.test(card.linkKey)?'airport':/home/i.test(card.linkKey)?'home':'hotel';
+    const note=kind==='airport'?C.deadlineAirport:C.deadlineHome;
+    return `<div class="info-card"><h3>${esc(card.title)}</h3><p>${esc(note)}</p><button type="button" class="primary dlv-action" onclick="deliverySelect('${kind}')">${esc(C.next)}</button></div>`;
+  }).join('')}</div></div>`;
+}
+function deliveryBasicView(){
+  const C=dlvText(),x=deliveryState.basic;
+  return `<div class="info-card dlv-panel"><button type="button" class="dlv-back" onclick="deliveryBack()">← ${esc(C.back)}</button><h3>${esc(C.form)} — ${esc(C.basic)}</h3>
+    <p>${esc(deliveryState.kind==='airport'?C.deadlineAirport:C.deadlineHome)}</p>
+    <form id="delivery-basic" onsubmit="return deliveryBasicContinue(event)">
+      <div class="dlv-grid">${dlvField('room',C.room,x.room||'','text',true,'','maxlength="20"')}${dlvField('name',C.name,x.name||'','text',true,'','maxlength="100"')}</div>
+      ${dlvDateField('checkoutDate',C.checkout,x.checkoutDate||'')}${dlvError()}
+      <button type="submit" class="primary dlv-action">${esc(C.next)}</button>
+    </form></div>`;
+}
+function dlvPayment(kind,C){
+  if(kind==='home')return `<fieldset class="dlv-payment"><legend>${esc(C.payment)} <span class="dlv-star">*</span></legend>
+    <label><input type="radio" name="payment" value="prepaid" ${deliveryState.details.payment==='prepaid'?'checked':''} required> ${esc(C.pre)}</label>
+    <label><input type="radio" name="payment" value="cod" ${deliveryState.details.payment==='cod'?'checked':''} required> ${esc(C.cod)}</label></fieldset>`;
+  return `<fieldset class="dlv-payment"><legend>${esc(C.payment)} <span class="dlv-star">*</span></legend>
+  <label><input type="radio" name="payment" value="prepaid" ${deliveryState.details.payment==='prepaid'?'checked':''} required> ${esc(C.pre)}</label></fieldset>`;
+}
+function deliveryDetailsView(){
+  const C=dlvText(),x=deliveryState.details,kind=deliveryState.kind;
+  const basic=`<div class="dlv-grid">${dlvField('room',C.room,x.room||'','text',true,'','maxlength="20"')}${dlvField('name',C.name,x.name||'','text',true,'','maxlength="100"')}</div>
+    ${dlvField('phone',C.phone,x.phone||'','tel',true,'','maxlength="50" autocomplete="tel"')}`;
+  let additional='',homeAddress='';
+  if(kind==='home'){
+    homeAddress=`${dlvField('postalCode',C.postal,x.postalCode||'','text',true,'','maxlength="24" autocomplete="postal-code"')}
+      ${dlvField('address',C.address,x.address||'','text',true,'','maxlength="500" autocomplete="street-address"')}`;
+  }else if(kind==='hotel'){
+    additional=`${dlvField('destinationHotel',C.destinationHotel,x.destinationHotel||'','text',true,'','maxlength="150"')}
+      ${dlvField('destinationHotelPhone',C.hotelPhone,x.destinationHotelPhone||'','tel',false,C.hotelPhoneHelp,'maxlength="50"')}
+      ${dlvField('destinationReservationName',C.reservation,x.destinationReservationName||'','text',true,'','maxlength="100"')}
+      <div class="dlv-grid">${dlvDateField('destinationCheckin',C.checkin,x.destinationCheckin||'')}${dlvDateField('destinationCheckout',C.out,x.destinationCheckout||'')}</div>`;
+  }else{
+    additional=`${dlvField('airportName',C.airport,x.airportName||'','text',true,'','maxlength="100"')}
+      ${dlvField('airportTerminal',C.terminal,x.airportTerminal||'','text',true,'','maxlength="100"')}
+      ${dlvField('flightNumber',C.flight,x.flightNumber||'','text',true,'','maxlength="30"')}
+      <div class="dlv-grid">${dlvDateField('boardingDate',C.boarding,x.boardingDate||'')}${dlvField('departureTime',C.departure,x.departureTime||'','time',true,'','step="60"')}</div>`;
+  }
+  const quantity=dlvField('quantity',C.quantity,x.quantity||'','number',true,'','min="1" max="30" step="1"');
+  const deskTime=dlvField('frontDeskTime',C.deskTime,x.frontDeskTime||'','time',false,C.deskHelp,'step="60"');
+  return `<div class="info-card dlv-panel"><button type="button" class="dlv-back" onclick="deliveryDetailsBack()">← ${esc(C.back)}</button>
+    <h3>${esc(C.form)} — ${esc(kind==='home'?C.home:kind==='hotel'?C.hotel:C.airportName)}</h3>
+    <form id="delivery-details" onsubmit="return deliverySubmit(event)">
+      ${basic}${additional}${quantity}${deskTime}${dlvPayment(kind,C)}${homeAddress}
+      <label class="dlv-consent"><input name="privacyConsent" type="checkbox" required ${x.privacyConsent?'checked':''}> ${esc(C.privacy)}</label>
+      <div class="dlv-honeypot" aria-hidden="true"><label>Website<input name="website" tabindex="-1" autocomplete="off"></label></div>
+      ${DELIVERY_TURNSTILE_SITEKEY?'<div id="delivery-turnstile"></div>':''}
+      ${dlvError()}<p class="dlv-muted">${esc(C.custom)}</p>
+      <button type="submit" class="primary dlv-action" id="delivery-submit" ${deliveryState.busy?'disabled':''}>${esc(deliveryState.busy?C.sending:C.send)}</button>
+    </form></div>`;
+}
+function deliveryDetailsBack(){
+  const form=document.getElementById('delivery-details');if(form)deliveryState.details=Object.fromEntries(new FormData(form));
+  deliveryState.basic.room=deliveryState.details.room||deliveryState.basic.room;
+  deliveryState.basic.name=deliveryState.details.name||deliveryState.basic.name;
+  deliveryState.step='basic';deliveryState.error='';render();window.scrollTo(0,0);
+}
+function dlvTime(s){return /^\d{2}:\d{2}$/.test(String(s||''))?s:'';}
+async function deliverySubmit(event){
+  event.preventDefault();if(deliveryState.busy)return false;
+  const C=dlvText(),form=event.currentTarget,fd=new FormData(form),o=Object.fromEntries(fd.entries());
+  const dateKeys=['destinationCheckin','destinationCheckout','boardingDate'];
+  for(const k of dateKeys)if(k in o){o[k]=dlvDate(o[k]);if(!o[k]){dlvShowError(C.incorrectDate);return false;}}
+  if(deliveryState.kind==='hotel'&&dlvDays(o.destinationCheckout,o.destinationCheckin)<0){dlvShowError(C.dateMismatch);return false;}
+  if(deliveryState.kind==='airport'&&dlvDays(o.boardingDate,dlvToday())<3){dlvShowError(C.airportDeadline);return false;}
+  const p={...o,kind:deliveryState.kind,checkoutDate:deliveryState.basic.checkoutDate,
+    quantity:Number(o.quantity),privacyConsent:fd.has('privacyConsent'),frontDeskTime:dlvTime(o.frontDeskTime)};
+  delete p.website;
+  if(deliveryState.kind!=='home')p.payment='prepaid';
+  deliveryState.details={...o,privacyConsent:p.privacyConsent};deliveryState.error='';deliveryState.busy=true;
+  if(!deliveryState.requestId)deliveryState.requestId=crypto.randomUUID();
+  const button=document.getElementById('delivery-submit');if(button){button.disabled=true;button.textContent=C.sending;}
+  try{
+    const token=DELIVERY_TURNSTILE_SITEKEY&&window.turnstile?window.turnstile.getResponse():'';
+    const res=await fetch(DELIVERY_API_URL+'/api/deliveries',{
+      method:'POST',headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({requestId:deliveryState.requestId,application:p,website:o.website||'',turnstileToken:token})
+    });
+    let result;try{result=await res.json();}catch{result={};}
+    if(!res.ok||result.ok!==true)throw new Error(result.error||C.error);
+    deliveryState.step='success';deliveryState.error='';render();window.scrollTo(0,0);
+  }catch(e){
+    console.warn('Delivery application failure:',e);
+    dlvShowError(`${C.noApp} ${e.message||C.error}`);
+    if(DELIVERY_TURNSTILE_SITEKEY&&window.turnstile)window.turnstile.reset();
+  }finally{
+    deliveryState.busy=false;
+    if(button){button.disabled=false;button.textContent=C.send;}
+  }
+  return false;
+}
+function deliverySuccessView(){const C=dlvText();return `<div class="info-card dlv-panel dlv-success"><h3>✓ ${esc(C.completed)}</h3><p>${esc(C.completedMessage).replace(/\n/g,'<br>')}</p><p class="dlv-muted">${esc(C.custom)}</p></div>`;}
+function dlvInstallStyle(){
+  if(document.getElementById('hotel-delivery-style'))return;
+  const css=`
+    .dlv-panel{margin-top:14px}.dlv-panel h3{margin:8px 0 18px}.dlv-panel form{max-width:940px}
+    .dlv-field{display:flex;flex-direction:column;gap:7px;margin:14px 0}.dlv-field label,.dlv-payment legend{font-weight:700;color:#202734}
+    .dlv-star{color:#c32929}.dlv-field input{min-width:0;width:100%;box-sizing:border-box;padding:13px 12px;border:1px solid #ccd0d8;border-radius:9px;background:#fff;font:inherit;font-size:16px;color:#152033}
+    .dlv-field small,.dlv-muted{color:#626c7e;font-size:13px}.dlv-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
+    .dlv-date-row{display:flex;align-items:center;gap:10px;min-width:0}.dlv-date-row>input{flex:1;min-width:0}
+    .dlv-calendar-label{display:flex;align-items:center;gap:6px;flex-shrink:0;font-size:13px!important;font-weight:500!important;background:#f1f3f6;padding:4px 9px;border-radius:7px}
+    .dlv-calendar-label input[type=date]{font-size:14px;width:46px;max-width:46px;min-width:46px;padding:5px 0;border:0;background:transparent}
+    .dlv-action{margin-top:14px;display:inline-block;padding:13px 20px;cursor:pointer;border:none;border-radius:10px;font-size:15px;font-weight:700}
+    .dlv-back{border:none;background:transparent;color:#2952c5;cursor:pointer;padding:4px 0 15px;font:inherit;font-weight:700}
+    .dlv-cards{display:grid;gap:12px}.dlv-cards>.info-card{margin:0}.dlv-payment{border:1px solid #d4d8e0;border-radius:10px;padding:14px;margin:17px 0}
+    .dlv-payment label{display:flex;align-items:center;gap:8px;margin:12px 0;cursor:pointer}.dlv-payment input{accent-color:#2756dc;width:18px;height:18px}
+    .dlv-consent{display:flex;align-items:flex-start;gap:9px;margin:18px 0;font-size:14px}.dlv-consent input{margin-top:4px}
+    .dlv-error{padding:14px;border-radius:9px;background:#fff0f0;border:1px solid #c94d4d;color:#a52525;line-height:1.65}.dlv-error[hidden]{display:none}
+    .dlv-honeypot{position:absolute!important;left:-10000px!important;width:1px;height:1px;overflow:hidden}
+    .dlv-success{line-height:2}.dlv-success h3{color:#136c43}.dlv-success p{margin:12px 0}.dlv-intro-notice{font-weight:700}
+    @media(max-width:650px){.dlv-grid{grid-template-columns:1fr}.dlv-date-row{flex-wrap:wrap}.dlv-calendar-label{width:auto}.dlv-field input{font-size:16px}}
+  `;
+  const s=document.createElement('style');s.id='hotel-delivery-style';s.textContent=css;document.head.appendChild(s);
+}
+function dlvTurnstileInit(){
+  if(!DELIVERY_TURNSTILE_SITEKEY||deliveryState.step!=='details'||!document.getElementById('delivery-turnstile'))return;
+  const mount=()=>{if(!document.getElementById('delivery-turnstile'))return;try{window.turnstile.render('#delivery-turnstile',{sitekey:DELIVERY_TURNSTILE_SITEKEY});}catch(e){console.warn(e)}};
+  if(window.turnstile){mount();return;}
+  if(!document.getElementById('hotel-turnstile-script')){
+    const s=document.createElement('script');s.id='hotel-turnstile-script';s.src='https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit';s.async=true;s.onload=mount;document.head.appendChild(s);
+  }
+}
+
 function baggage(){
-  const L=T();
-  const B=SITE_DATA.baggage[state.lang];
-
-  const intro = B.intro.length ? `
-    <div class="info-card">
-      ${B.intro.map(p=>`<p>${esc(p)}</p>`).join("")}
-    </div>` : "";
-
-  const cards = B.cards.map(c=>`
-    <div class="info-card">
-      <h3>${esc(c.title)}</h3>
-      ${c.note ? `<p>${esc(c.note)}</p>` : ""}
-      <div class="actions">
-        <a class="primary" href="${SITE_DATA.externalLinks[c.linkKey]}" target="_blank" rel="noopener">${esc(c.button)}</a>
-      </div>
-    </div>
-  `).join("");
-
-  return pageWrap(L.baggage,`${intro}<div class="cards" style="margin-top:12px">${cards}</div>`);
+  const C=dlvText();
+  let inner=dlvIntro();
+  if(deliveryState.step==='select')inner+=deliveryChooseView();
+  else if(deliveryState.step==='basic')inner+=deliveryBasicView();
+  else if(deliveryState.step==='details')inner+=deliveryDetailsView();
+  else if(deliveryState.step==='success')inner+=deliverySuccessView();
+  return pageWrap(T().baggage,inner);
 }
 
 function airport(){
@@ -606,6 +820,10 @@ function render(){
   };
 
   app.innerHTML=(pages[state.page]||home)();
+  if(state.page==='baggage'){
+    dlvInstallStyle();
+    if(deliveryState.step==='details')requestAnimationFrame(dlvTurnstileInit);
+  }
 }
 
 history.replaceState(
