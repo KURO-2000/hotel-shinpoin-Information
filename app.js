@@ -13,6 +13,22 @@ const ADMIN_SEQUENCE = ["hotel","back","hotel","back","hotel","back","restaurant
 let adminSequenceIndex = 0;
 let adminSequenceTimer = null;
 
+// Fallback only for admins: eight quick taps on the existing hotel brand.
+// The Worker still requires Supabase authentication for any editing API.
+let adminBrandTapCount=0;
+let adminBrandTapTimer=null;
+function adminBrandTap(){
+  clearTimeout(adminBrandTapTimer);
+  adminBrandTapCount++;
+  if(adminBrandTapCount>=8){
+    adminBrandTapCount=0;
+    window.location.href=ADMIN_URL;
+    return;
+  }
+  adminBrandTapTimer=setTimeout(()=>{adminBrandTapCount=0;},20000);
+}
+
+
 function adminTrack(action){
   if(action === ADMIN_SEQUENCE[adminSequenceIndex]){
     adminSequenceIndex += 1;
@@ -129,7 +145,7 @@ window.addEventListener("popstate", (event)=>{
 
 function topbar(){
   return `<div class="topbar">
-    <div class="brand">${esc(SITE_DATA.hotelName)}</div>
+    <div class="brand" onclick="adminBrandTap()">${esc(SITE_DATA.hotelName)}</div>
     <div class="top-actions">
       <button class="lang-btn ${state.lang==="ja"?"active":""}" onclick="setLang('ja')">日本語</button>
       <button class="lang-btn ${state.lang==="en"?"active":""}" onclick="setLang('en')">English</button>
@@ -174,7 +190,7 @@ if(state.lang === "en"){
   return `${topbar()}
   <div class="hero"><h1>${esc(L.title)}</h1><p>${esc(L.subtitle)}</p></div>
   <div class="grid">
-    ${menus.map(m=>`<button class="menu-card" onclick="go('${m[0]}')">
+    ${menus.filter(m=>SITE_DATA.menuVisibility?.[m[0]] !== false).map(m=>`<button class="menu-card" onclick="go('${m[0]}')">
       <div class="emoji">${m[1]}</div>
       <div><strong>${esc(m[2])}</strong><br><span>${esc(m[3])}</span></div>
     </button>`).join("")}
